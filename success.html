@@ -12,19 +12,17 @@
   <style>
     body{background:#f8fafc}
     .card-soft{border:1px solid #e5e7eb;border-radius:14px}
-    /* Sembunyikan konten sampai lolos verifikasi */
-    [data-guard="app"][hidden] { display:none !important; }
+    [data-guard="app"][hidden]{display:none!important}
   </style>
 </head>
 <body>
 
-  <!-- APP dibuka hanya jika verified -->
+  <!-- APP: hanya ditampilkan setelah VERIFIED/PAID -->
   <main class="container py-5" style="max-width:760px;" data-guard="app" hidden>
     <div class="text-center mb-4">
       <div class="display-6">✅ Pembayaran Berhasil</div>
       <p class="text-muted mb-0">Silakan <b>cek email</b> kamu untuk menerima <b>link akses materi</b>.</p>
-      <p class="text-muted">
-        Jika belum masuk, periksa folder <b>Spam/Promotions</b>. Kendala? WhatsApp:
+      <p class="text-muted">Jika belum masuk, periksa folder <b>Spam/Promotions</b>. Kendala? WhatsApp:
         <a id="waHelp" href="#" class="link-success">085156042869</a>
       </p>
     </div>
@@ -36,9 +34,7 @@
             <h2 class="h5 mb-1">Status Pembayaran</h2>
             <div id="statusBox" class="alert alert-success mb-0" role="alert">
               <div class="fw-semibold" id="statHeadline">Pembayaran terverifikasi</div>
-              <div class="small text-muted" id="statDetail">
-                Email akses sudah/sedang dikirim. Jika belum terlihat, cek Spam/Promotions.
-              </div>
+              <div class="small text-muted" id="statDetail">Email akses sudah/sedang dikirim. Jika belum terlihat, cek Spam/Promotions.</div>
             </div>
           </div>
           <div class="text-end">
@@ -58,10 +54,10 @@
     </div>
   </main>
 
-  <!-- Skeleton ringan saat verifikasi -->
+  <!-- SKELETON saat menunggu verifikasi -->
   <div class="container py-5 text-center text-muted" id="skeleton" style="max-width:760px;">
     <div class="spinner-border text-success mb-3" role="status" style="width:2.5rem;height:2.5rem;"></div>
-    <div class="d-block">Memverifikasi pembayaran…</div>
+    <div class="d-block" id="skText">Memverifikasi pembayaran…</div>
   </div>
 
   <script src="assets/config.js"></script>
@@ -71,43 +67,62 @@
       const eid = qs.get('eid') || '';
       const sig = qs.get('sig') || '';
 
-      // Redirect cepat jika tidak ada token
+      // 1) tanpa token → pulang
       if (!eid || !sig) return location.replace('/');
 
-      // set WA link dari config
+      // 2) set WA
       const WA = (window.CONFIG && CONFIG.SUPPORT_WA_E164) ? CONFIG.SUPPORT_WA_E164 : "6285156042869";
       const waUrl = "https://wa.me/" + WA;
       const waHelp = document.getElementById('waHelp'); if (waHelp) waHelp.href = waUrl;
       const btnWa  = document.getElementById('btnWa');  if (btnWa) { btnWa.href = waUrl; btnWa.textContent = "Chat WhatsApp"; }
 
-      // tampilkan order id
+      // 3) tampilkan order id
       const orderIdEl = document.getElementById('orderId'); if (orderIdEl) orderIdEl.textContent = eid;
 
-      // Verifikasi wajib ke Apps Script
+      // 4) verifikasi + polling
+      const statBox = document.getElementById('statusBox');
+      const headEl  = document.getElementById('statHeadline');
+      const detEl   = document.getElementById('statDetail');
+      const app     = document.querySelector('[data-guard="app"]');
+      const sk      = document.getElementById('skeleton');
+      const skText  = document.getElementById('skText');
+
+      async function verifyOnce(){
+        const url = CONFIG.APP_SCRIPT_URL + '?action=verify&eid=' + encodeURIComponent(eid) + '&sig=' + encodeURIComponent(sig);
+        const r = await fetch(url, { method:'GET' });
+        return r.json();
+      }
+
+      let paid = false;
       try {
         if (!CONFIG || !CONFIG.APP_SCRIPT_URL) throw new Error('no_verify_endpoint');
 
-        const url = CONFIG.APP_SCRIPT_URL + '?action=verify&eid=' + encodeURIComponent(eid) + '&sig=' + encodeURIComponent(sig);
-        const r = await fetch(url, { method:'GET' });
-        const j = await r.json();
-
-        // Jika tidak PAID → tendang ke beranda
-        if (!j || !j.ok || String(j.status).toUpperCase() !== 'PAID') {
-          return location.replace('/');
+        // polling: 3s x 40 (±120 detik)
+        const POLL_MS = 3000, MAX_TRY = 40;
+        for (let i = 0; i < MAX_TRY; i++) {
+          const j = await verifyOnce().catch(() => null);
+          if (j && j.ok && String(j.status).toUpperCase() === 'PAID') { paid = true; break; }
+          // update skeleton text tiap 2x loop biar terasa hidup
+          if (i % 2 === 1 && skText) skText.textContent = 'Menunggu konfirmasi pembayaran dari bank/Xendit…';
+          await new Promise(res => setTimeout(res, POLL_MS));
         }
+      } catch (e) {
+        // kalau error jaringan: tetap tampilkan pending UI (jangan redirect)
+      }
 
-        // Lolos: tampilkan app, sembunyikan skeleton
-        document.querySelector('[data-guard="app"]').hidden = false;
-        const sk = document.getElementById('skeleton'); if (sk) sk.remove();
+      // 5) hasil
+      if (paid) {
+        // tampilkan app, sembunyikan skeleton
+        if (app) app.hidden = false;
+        if (sk)  sk.remove();
 
-        // Fire Pixel Purchase SEKALI per EID (setelah VERIFIED)
+        // fire pixel sekali per EID
         const firedKey = 'purchase-fired:' + eid;
         if (!sessionStorage.getItem(firedKey)) {
           try {
             const basePrice = (CONFIG && CONFIG.PRODUCT_DEFAULT && Number(CONFIG.PRODUCT_DEFAULT.price)) || 0;
             const last = Number(localStorage.getItem('lastPrice') || 0);
-            const val = (last > 0 ? last : basePrice) || (j.amount || 0);
-
+            const val = (last > 0 ? last : basePrice) || 0;
             if (window.fbq) {
               fbq('track', 'Purchase', {
                 value: val,
@@ -119,9 +134,15 @@
           } catch(_) {}
           sessionStorage.setItem(firedKey, '1');
         }
-      } catch (e) {
-        // Jika verifikasi error (network/dll) → fallback aman: balik ke beranda
-        return location.replace('/');
+      } else {
+        // belum paid setelah timeout → tampilkan pending, jangan redirect
+        if (app) app.hidden = false;
+        if (sk)  sk.remove();
+        if (statBox) {
+          statBox.className = 'alert alert-warning';
+          headEl.textContent = 'Menunggu konfirmasi pembayaran…';
+          detEl.textContent  = 'Jika sudah bayar, email akses akan otomatis terkirim segera setelah kami menerima konfirmasi PAID.';
+        }
       }
     })();
   </script>
