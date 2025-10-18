@@ -22,12 +22,13 @@
             <input id="eid" class="form-control" placeholder="INV-... (jika tahu)">
           </div>
           <div class="col-12 d-grid">
-            <button class="btn btn-dark" type="submit">Buka Akses</button>
+            <button class="btn btn-dark" type="submit">Kirim Link Akses</button>
           </div>
           <div class="col-12">
             <div id="msg" class="small text-secondary"></div>
           </div>
         </form>
+        <p class="small text-secondary mt-3">Butuh bantuan? WA <a href="https://wa.me/6285156042869">085156042869</a></p>
       </div>
     </div>
   </main>
@@ -37,7 +38,7 @@
     const form = document.getElementById('f');
     const msg  = document.getElementById('msg');
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); // ⬅️ penting: cegah form open JSON
+      e.preventDefault();
       const WB = window.CONFIG.WORKER_BASE;
       const wa  = document.getElementById('wa').value.trim();
       const eid = document.getElementById('eid').value.trim();
@@ -54,7 +55,7 @@
           msg.textContent = 'Tidak ditemukan/Belum paid. Pastikan WA & External ID benar.';
           return;
         }
-        // Navigasi GET ke redeem → cookie set → 302 ke /view
+        // Tidak tampilkan konten. Navigasi GET ke redeem agar cookie set, lalu Worker redirect ke /view (stream)
         const redeemUrl = `${WB}/redeem?token=${encodeURIComponent(j.access_token)}`;
         try { location.assign(redeemUrl); } catch(_) { window.open(redeemUrl, '_self'); }
         msg.innerHTML = `Membuka akses... <a href="${redeemUrl}">Klik di sini jika tidak otomatis</a>`;
