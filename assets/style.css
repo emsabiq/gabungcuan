@@ -1,6 +1,4 @@
-:root{ --radius: 16px; }
-body { scroll-behavior: smooth; }
-.card-hero{ border-radius: var(--radius); }
-.price-banner{ background: #0ea5e910; border: 1px solid #0ea5e933; }
-.preview img{ object-fit: cover; aspect-ratio: 16/10; }
-.btn[disabled]{ opacity: .7; }
+:root { --brand:#111; }
+body { background:#fafafa; }
+.card { border-radius:14px; }
+.btn-dark { background: var(--brand); border-color: var(--brand); border-radius:10px; }
