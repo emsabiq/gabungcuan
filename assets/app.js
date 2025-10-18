@@ -24,7 +24,7 @@
     const nama  = document.getElementById('nama').value.trim();
     const wa    = document.getElementById('wa').value.trim();
     const email = document.getElementById('email').value.trim();
-    const waOK  = /^62[0-9]{8,15}$/.test(wa);
+    const waOK   = /^62[0-9]{8,15}$/.test(wa);
     const mailOK = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!nama || !waOK || !mailOK) {
@@ -34,14 +34,14 @@
       return;
     }
 
-    // Pixel: AddToCart pada klik bayar
+    // Pixel: AddToCart saat klik bayar
     try { if (window.fbq) fbq('track', 'AddToCart', {content_name: PROD.name, value: PROD.price, currency: 'IDR'}); } catch(_){}
 
     btn.disabled = true;
     msg.className = "small mt-3 text-muted";
     msg.textContent = "Membuat invoice…";
 
-    // log visit (opsional)
+    // log visit (opsional; tidak wajib)
     try {
       await fetch(`${CONFIG.API_BASE}/api/log-visit`, {
         method: 'POST',
@@ -73,7 +73,7 @@
       // Pixel: InitiateCheckout
       try { if (window.fbq) fbq('track', 'InitiateCheckout', {value: PROD.price, currency:'IDR'}); } catch(_){}
 
-      // simpan harga utk Purchase event di success page
+      // simpan harga utk Purchase di success page
       try { localStorage.setItem('lastPrice', String(PROD.price)); } catch(_){}
 
       // redirect ke Xendit invoice URL
