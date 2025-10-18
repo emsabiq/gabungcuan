@@ -21,7 +21,7 @@
     APP_ORIGIN: "https://gabungcuan.vercel.app",
     API_BASE: "https://gdc.msabiq-stan.workers.dev",
     SUPPORT_WA_E164: "6285156042869",
-    PIXEL_ID: "1328311132182013",
+    PIXEL_ID: "1101231165101521",
     BUNDLE_VALUE: normalizePrice(BUNDLE_VALUE),
     COMPARE_AT_PRICE: normalizePrice(COMPARE_AT_PRICE),
 
@@ -40,3 +40,4 @@
   try { Object.freeze(CONFIG.PRODUCT_DEFAULT); Object.freeze(CONFIG); } catch(_) {}
   global.CONFIG = CONFIG;
 })(window);
+
