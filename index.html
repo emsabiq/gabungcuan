@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="id">
 <head>
+  <!-- =======================================================================
+       INDEX.HTML — GABUNG DAPAT CUAN (Landing + Checkout)
+       - Harga diambil dari assets/config.js → CONFIG.PRODUCT_DEFAULT.price
+       - Submit form → assets/app.js → /api/create-invoice (Cloudflare Worker)
+       - Meta Pixel: assets/pixel.js (pakai CONFIG.PIXEL_ID)
+       - JSON-LD: placeholder #schema-product → diisi app.js
+       ======================================================================= -->
+
   <meta charset="utf-8" />
   <title>Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual (PLR/MRR)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,10 +33,57 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="assets/style.css" />
 
+  <style>
+    :root{
+      --brand:#16a34a; --brand-ink:#0b1220; --muted:#6b7280; --soft:#ecfdf5; --ink:#0f172a;
+      --bg:#fafafa; --border:#e5e7eb; --white:#fff;
+    }
+    html{ scroll-behavior:smooth; }
+    body{ color:var(--ink); background:var(--bg); }
+    .navbar{ backdrop-filter:saturate(140%) blur(6px); }
+    .brand-badge{ width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#059669,#16a34a);display:inline-block;position:relative; }
+    .brand-badge:after{ content:"\f02d"; font:900 16px "Font Awesome 6 Free"; color:#fff; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
+    .hero{
+      background:
+      radial-gradient(1200px 480px at 20% -10%, #f0fdf4 0, rgba(240,253,244,0) 60%),
+      radial-gradient(1000px 420px at 100% 0%, #ecfeff 0, rgba(236,254,255,0) 55%),
+      #ffffff;
+    }
+    .glass{ background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1px solid rgba(15,23,42,.06); border-radius:16px; box-shadow:0 20px 40px rgba(2,6,23,.08);}
+    .check-pill{ background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;padding:.35rem .75rem;font-size:.85rem }
+    .icon-circle{ width:42px;height:42px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--soft);color:var(--brand);}
+    .muted{ color:var(--muted)!important; }
+    .section-title{ font-weight:800; letter-spacing:-.02em; }
+    .price-tag{ display:inline-flex;align-items:center;gap:.5rem;background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;padding:.4rem .8rem;font-weight:600;color:#1f2937; }
+    .shadow-soft{ box-shadow:0 10px 30px rgba(2,6,23,.06); }
+    .ratio-thumb{ border:1px solid #e5e7eb;border-radius:12px;overflow:hidden; }
+    .count-box{ display:flex;gap:.75rem;flex-wrap:wrap; }
+    .time{ min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;background:#fff;border:1px solid #e5e7eb; }
+    .time .num{ font-size:1.5rem;font-weight:800;color:#111827; }
+    .time .lab{ font-size:.75rem;color:#6b7280; }
+    .floating-cta{ position:fixed;left:0;right:0;bottom:-100px;background:#111827;color:#fff;z-index:9999;transition:bottom .35s ease;padding:.75rem 1rem; }
+    .floating-cta.show{ bottom:0; }
+    .bg-stripe{ background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06)); }
+    .smallcaps{font-variant:all-small-caps;letter-spacing:.06em}
+    .card-lite{ border:1px solid var(--border); border-radius:16px; background:#fff; }
+    .list-check li{ margin-bottom:.4rem; }
+    .list-check .fa-check{ color:#16a34a }
+    .table-compare th, .table-compare td{ vertical-align:middle; }
+    .lh-tight{ line-height:1.2 }
+    .badge-soft{
+      background:var(--soft);color:var(--brand);border:1px solid #bbf7d0;
+    }
+    .grid-logos img{ height:30px; opacity:.8 }
+    .cta-strip{
+      background:linear-gradient(90deg, rgba(22,163,74,.1), rgba(59,130,246,.08));
+      border:1px solid var(--border); border-radius:14px;
+    }
+  </style>
+
   <!-- 1) Config harus loaded dulu (pakai versioning utk cache-busting) -->
-  <script src="assets/config.js?v=2025-10-18-04"></script>
+  <script src="assets/config.js?v=2025-10-18-03"></script>
   <!-- 2) Pixel loader (baca CONFIG.PIXEL_ID) -->
-  <script src="assets/pixel.js?v=2025-10-18-04" defer></script>
+  <script src="assets/pixel.js?v=2025-10-18-03" defer></script>
 
   <!-- JSON-LD diisi dinamis oleh assets/app.js -->
   <script id="schema-product" type="application/ld+json"></script>
@@ -93,11 +148,11 @@
 
           <!-- PRICE & DEADLINE -->
           <div class="glass p-3 p-md-4 mb-4 shadow-soft" id="checkout">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 w-100">
-              <div class="price-tag shadow-sm rounded-pill d-flex align-items-center justify-content-between p-2 flex-grow-1">
-                <div class="px-3 small">
-                  <span class="d-block text-muted">Nilai Bundle: <s id="bundleValue">—</s></span>
-                  <span class="d-block text-muted">Harga Normal: <s id="compareAt">—</s></span>
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+              <div class="price-tag shadow-sm rounded-pill d-flex align-items-center justify-content-between p-2" style="background-color:#ecfdf5;border:1px solid #bbf7d0;flex-grow:1;">
+                <div class="px-3">
+                  <span class="d-block text-muted" style="font-size:.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
+                  <span class="d-block text-muted" style="font-size:.8rem;">Harga Normal: <s>Rp 800.000</s></span>
                 </div>
                 <div class="bg-success text-white rounded-pill px-4 py-2">
                   <strong class="fs-5" id="priceBadge">Rp 0</strong>
@@ -133,7 +188,6 @@
               <a class="btn btn-outline-success" href="#harga"><i class="fa-solid fa-list-ul me-1"></i> Lihat Paket</a>
             </div>
             <div class="col-12"><div id="msg" class="small text-muted"></div></div>
-            <div class="col-12 small text-muted">Harga: <b id="priceLabel">Rp 0</b></div>
           </form>
 
           <!-- Countdown -->
@@ -161,6 +215,7 @@
           <div class="glass p-3 p-md-4">
             <div class="row g-3">
               <div class="col-12">
+                <!-- Gambar utama / hero -->
                 <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital" loading="lazy" />
               </div>
             </div>
@@ -169,7 +224,7 @@
               <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Xendit_Logo.png" width="72" alt="Xendit" class="ms-1 align-text-top" />
               .
             </div>
-          </div>
+          </div><!-- /glass -->
         </div>
       </div>
     </div>
@@ -585,7 +640,7 @@
           </h2>
           <div id="a2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body small text-muted">
-              Setelah status pembayaran <b>PAID</b> dari Xendit, sistem otomatis mengirim <b>2 link materi</b> ke email kamu. Jika belum masuk, cek <b>Spam/Promotions</b> atau hubungi WhatsApp bantuan.
+              Setelah status pembayaran <b>PAID</b> dari Xendit, sistem otomatis mengirim <b>2 link akses</b> ke email kamu. Jika belum masuk, cek <b>Spam/Promotions</b> atau hubungi WhatsApp bantuan.
             </div>
           </div>
         </div>
@@ -616,7 +671,7 @@
           <h2 class="accordion-header" id="q5">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a5">Apakah bisa re-akses materi berkali-kali?</button>
           </h2>
-        <div id="a5" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+          <div id="a5" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body small text-muted">
               Ya. Link akses di email bisa kamu buka kapan saja. Mohon tidak membagikan link secara publik agar tetap sesuai lisensi.
             </div>
@@ -673,9 +728,9 @@
             <div class="card shadow-sm border-warning">
               <div class="card-body text-center p-4">
                 <div class="text-muted mb-2">
-                  <span>Nilai Bundle <s id="bundleValue2">—</s></span>
+                  <span>Nilai Bundle <s>Rp 3.699.000</s></span>
                   <span class="mx-2">|</span>
-                  <span>Harga Normal <s id="compareAt2">—</s></span>
+                  <span>Harga Normal <s>Rp 800.000</s></span>
                 </div>
 
                 <div class="display-4 fw-bolder text-success" id="priceMain">Rp 0</div>
@@ -765,24 +820,17 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- ============================== APP JS ============================= -->
-  <script src="assets/app.js?v=2025-10-18-04"></script>
+  <script src="assets/app.js?v=2025-10-18-03"></script>
 
   <!-- ============================== SMALL HELPERS ====================== -->
   <script>
-    // Format IDR helper
-    function fmtIDR(n){
-      try { return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n||0)); }
-      catch(_) { return 'Rp 0'; }
-    }
-
-    // 1) Link WA di beberapa tempat
+    // Link WA duplikat di beberapa section
     (function(){
       var wa = (window.CONFIG && CONFIG.SUPPORT_WA_E164) ? CONFIG.SUPPORT_WA_E164 : "6285156042869";
       var l2 = document.getElementById('linkWA2'); if (l2) l2.href = "https://wa.me/" + wa;
-      var faq = document.getElementById('faqWA');  if (faq) faq.href = "https://wa.me/" + wa;
     })();
 
-    // 2) Nama produk opsional (kalau kamu ingin menampilkan judul terpisah)
+    // Isi nama produk (opsional label terpisah)
     (function(){
       var el = document.getElementById('prodTitle');
       if (el && window.CONFIG && CONFIG.PRODUCT_DEFAULT && CONFIG.PRODUCT_DEFAULT.name) {
@@ -790,38 +838,28 @@
       }
     })();
 
-    // 3) Bundle Value & Compare At (diambil dari CONFIG) → dua lokasi (hero & pricing)
+    // Tampilkan satu label harga statis jika dipakai (untuk beberapa varian template)
     (function(){
-      if (!window.CONFIG) return;
-      var bv = (CONFIG.BUNDLE_VALUE || 0);
-      var ca = (CONFIG.COMPARE_AT_PRICE || 0);
-
-      var ids = ['bundleValue','bundleValue2'];
-      ids.forEach(function(id){
-        var el = document.getElementById(id);
-        if (el) el.textContent = bv ? fmtIDR(bv) : '—';
-      });
-
-      var ids2 = ['compareAt','compareAt2'];
-      ids2.forEach(function(id){
-        var el = document.getElementById(id);
-        if (el) el.textContent = ca ? fmtIDR(ca) : '—';
-      });
+      var el = document.getElementById('priceLabel');
+      if (el && window.CONFIG && CONFIG.PRODUCT_DEFAULT) {
+        try {
+          var price = CONFIG.PRODUCT_DEFAULT.price;
+          var txt = new Intl.NumberFormat('id-ID', {style:'currency', currency:'IDR', maximumFractionDigits:0}).format(price);
+          el.textContent = txt;
+        } catch(_) {}
+      }
     })();
 
-    // 4) Tanggal "update" (Pricing)
+    // Tanggal "update" (Pricing)
     (function(){
-      const namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      const namaBulan = [
+        "Januari","Februari","Maret","April","Mei","Juni",
+        "Juli","Agustus","September","Oktober","November","Desember"
+      ];
       var d = new Date();
       var txt = namaBulan[d.getMonth()] + " " + d.getFullYear();
       var od = document.getElementById('offer-date');
       if (od) od.textContent = txt;
-    })();
-
-    // 5) Tahun footer
-    (function(){
-      var y = document.getElementById('y');
-      if (y) y.textContent = new Date().getFullYear();
     })();
   </script>
 
