@@ -19,13 +19,12 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <h2 class="h5 mb-3">Status Pembayaran</h2>
-        <div id="statusBox" class="alert alert-secondary d-flex align-items-center" role="alert">
+        <div id="statusBox" class="alert alert-success d-flex align-items-center" role="alert">
           <div>
-            <div class="fw-semibold" id="statHeadline">Menunggu verifikasi…</div>
-            <div class="small text-muted" id="statDetail">Kami akan coba verifikasi sekali. Terlepas dari hasilnya, email akses tetap dikirim setelah pembayaran kami terima.</div>
+            <div class="fw-semibold" id="statHeadline">Email akses telah/akan dikirim</div>
+            <div class="small text-muted" id="statDetail">Silakan cek Inbox/Spam/Promotions. Kendala? hubungi WhatsApp kami.</div>
           </div>
         </div>
-
         <a class="btn btn-dark" href="/">Kembali ke Beranda</a>
       </div>
     </div>
@@ -34,35 +33,28 @@
   <script src="assets/config.js"></script>
   <script>
     (function(){
-      const qs = new URLSearchParams(location.search);
-      const eid = qs.get('eid');
-      const sig = qs.get('sig');
+      // set link WA
       const waHelp = document.getElementById('waHelp');
-      waHelp.href = "https://wa.me/" + (CONFIG.SUPPORT_WA_E164 || "6285156042869");
+      if (waHelp) waHelp.href = "https://wa.me/" + (CONFIG.SUPPORT_WA_E164 || "6285156042869");
 
-      // Fire Pixel purchase (tidak bergantung pada verify)
-      try {
-        const val = Number(localStorage.getItem('lastPrice') || CONFIG.PRODUCT_DEFAULT.price || 0) || 0;
-        if (window.fbq) fbq('track', 'Purchase', {currency: 'IDR', value: val});
-      } catch(_) {}
+      // Fire Pixel Purchase sekali per sesi & per EID
+      const qs  = new URLSearchParams(location.search);
+      const eid = qs.get('eid') || 'no-eid';
+      const firedKey = 'purchase-fired:' + eid;
 
-      // Cek verify sekali (non-blocking)
-      if (eid && sig) {
-        fetch(`${CONFIG.API_BASE}/api/verify?eid=${encodeURIComponent(eid)}&sig=${encodeURIComponent(sig)}`)
-          .then(r => r.json()).then(j => {
-            const box = document.getElementById('statusBox');
-            const head = document.getElementById('statHeadline');
-            const det = document.getElementById('statDetail');
-            if (j && j.ok && j.status === 'PAID') {
-              box.className = 'alert alert-success';
-              head.textContent = 'Terverifikasi: Pembayaran diterima';
-              det.textContent = 'Email akses telah/akan dikirim ke inbox Anda. Terima kasih!';
-            } else {
-              box.className = 'alert alert-warning';
-              head.textContent = 'Pembayaran diproses';
-              det.textContent = 'Jika email belum diterima, mohon tunggu beberapa menit atau cek Spam/Promotions.';
-            }
-          }).catch(_ => {});
+      if (!sessionStorage.getItem(firedKey)) {
+        try {
+          const val = Number(localStorage.getItem('lastPrice') || CONFIG.PRODUCT_DEFAULT.price || 0) || 0;
+          if (window.fbq) {
+            fbq('track', 'Purchase', {
+              value: val,
+              currency: 'IDR',
+              content_name: CONFIG.PRODUCT_DEFAULT.name,
+              content_type: 'product'
+            });
+          }
+        } catch(_) {}
+        sessionStorage.setItem(firedKey, '1');
       }
     })();
   </script>
