@@ -2,29 +2,39 @@ export const config = { runtime: 'edge' };
 
 export default async function handler(req) {
   try {
+    const qs  = new URL(req.url);
+    const DBG = qs.searchParams.get('debug') === '1';
+
     // ===== ENV =====
     const APP_SCRIPT_URL = process.env.APP_SCRIPT_URL;
     const BRIDGE_SECRET  = process.env.BRIDGE_SECRET;
     const SESSION_TTL    = parseInt(process.env.SESSION_TTL_SECS || '120', 10);
+    const TICKET         = qs.searchParams.get('ticket');
 
     if (!APP_SCRIPT_URL || !BRIDGE_SECRET) {
       return boom('missing_env', { APP_SCRIPT_URL: !!APP_SCRIPT_URL, BRIDGE_SECRET: !!BRIDGE_SECRET });
     }
-
-    // ===== PARAM =====
-    const url = new URL(req.url);
-    const ticket = url.searchParams.get('ticket');
-    if (!ticket) return boom('no_ticket');
+    if (!TICKET) return boom('no_ticket');
 
     // ===== VALIDATE to GAS =====
     const r = await fetch(`${APP_SCRIPT_URL}?action=access`, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify({ token: ticket })
+      body: JSON.stringify({ token: TICKET })
     });
-    if (!r.ok) return boom('bridge_fail', { status: r.status });
-    const j = await r.json();
-    if (!j.ok || !j.product_id) return boom('invalid_ticket', j);
+
+    const rawText = await r.text(); // aman dari non-JSON
+    let j = null; try { j = JSON.parse(rawText); } catch { j = null; }
+
+    if (!r.ok) {
+      return boom('bridge_fail', { status: r.status, body: rawText.slice(0, 200) });
+    }
+    if (!j || !j.ok) {
+      return boom('invalid_ticket', j || { raw: rawText.slice(0, 200) });
+    }
+    if (!j.product_id) {
+      return boom('no_product_id', j);
+    }
 
     const productId = j.product_id;
 
@@ -36,6 +46,10 @@ export default async function handler(req) {
     const payload = `${uaH}.${exp}.${rnd}.${productId}`;
     const sig = await hmac(BRIDGE_SECRET, payload);
     const sessVal = `${payload}.${sig}`;
+
+    if (DBG) {
+      return json({ ok:true, stage:'redeem', productId, exp, payload, note:'debug=1 tidak redirect' });
+    }
 
     return new Response(null, {
       status: 302,
