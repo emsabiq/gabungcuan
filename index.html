@@ -3,34 +3,35 @@
 <head>
   <!-- =======================================================================
        INDEX.HTML — GABUNG DAPAT CUAN (Landing + Checkout)
-       Catatan:
-       - Harga diambil dari assets/config.js → CONFIG.PRODUCT_DEFAULT.price
-       - Form submit → fetch Worker /api/create-invoice → redirect ke Xendit
-       - Pixel: PageView inisialisasi di assets/pixel.js; AddToCart/InitiateCheckout di assets/app.js
-       - Banyak section untuk kebutuhan halaman panjang (SEO/Ads Quality)
+       Catatan penting:
+       - Harga ditarik dari assets/config.js → CONFIG.PRODUCT_DEFAULT.price
+       - Form submit → assets/app.js → call Worker /api/create-invoice → redirect Xendit
+       - Pixel: PageView di assets/pixel.js; AddToCart/InitiateCheckout di assets/app.js
+       - JSON-LD diisi dinamis via assets/app.js (script#schema-product)
        ======================================================================= -->
 
   <meta charset="utf-8" />
   <title>Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual (PLR/MRR)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- SEO / Open Graph -->
-  <meta name="description" content="1x akses, produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung jual. Akses dikirim otomatis ke email setelah pembayaran berhasil.">
-  <meta property="og:title" content="Gabung Dapat Cuan — Produk Digital Siap Jual (PLR/MRR)">
-  <meta property="og:description" content="Masterkit U-PLR, PLR & MRR. Rebrand bebas, katalog raksasa, update gratis. Ambil akses sekarang.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/cover.jpg">
-  <meta property="og:site_name" content="gabungcuan">
+  <meta name="description" content="1x akses, produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung jual. Akses dikirim otomatis ke email setelah pembayaran berhasil." />
+  <link rel="canonical" href="/" />
+  <meta property="og:title" content="Gabung Dapat Cuan — Produk Digital Siap Jual (PLR/MRR)" />
+  <meta property="og:description" content="Masterkit U-PLR, PLR & MRR. Rebrand bebas, katalog raksasa, update gratis. Ambil akses sekarang." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/cover.jpg" />
+  <meta property="og:site_name" content="gabungcuan" />
 
   <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
 
   <!-- Bootstrap & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css" />
 
   <style>
     :root{
@@ -64,40 +65,20 @@
     .floating-cta.show{ bottom:0; }
     .bg-stripe{ background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06)); }
     .smallcaps{font-variant:all-small-caps;letter-spacing:.06em}
-
-    /* Cards */
     .card-lite{ border:1px solid var(--border); border-radius:16px; background:#fff; }
     .list-check li{ margin-bottom:.4rem; }
     .list-check .fa-check{ color:#16a34a }
-
-    /* Tables */
     .table-compare th, .table-compare td{ vertical-align:middle; }
-
-    /* Utility */
     .lh-tight{ line-height:1.2 }
   </style>
 
-  <!-- Load config BEFORE anything using it -->
+  <!-- 1) Config harus loaded DULU -->
   <script src="assets/config.js"></script>
-  <!-- Load Pixel using CONFIG.PIXEL_ID -->
+  <!-- 2) Pixel loader yang baca CONFIG.PIXEL_ID -->
   <script src="assets/pixel.js" defer></script>
 
-  <!-- JSON-LD Schema (Organization + Product) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Product",
-    "name":"Akses Digital Licence Masterkit U PLR MRR",
-    "brand":{"@type":"Organization","name":"gabungcuan"},
-    "description":"Paket besar produk digital dengan lisensi PLR/MRR siap jual ulang. Rebrand, posting, langsung jual.",
-    "offers":{
-      "@type":"Offer",
-      "priceCurrency":"IDR",
-      "price":"99000",
-      "availability":"https://schema.org/InStock"
-    }
-  }
-  </script>
+  <!-- JSON-LD diisi dinamis oleh assets/app.js -->
+  <script id="schema-product" type="application/ld+json"></script>
 </head>
 <body>
 
@@ -175,21 +156,21 @@
             </div>
           </div>
 
-          <!-- FORM CHECKOUT (Flow Email-Only) -->
+          <!-- FORM CHECKOUT -->
           <form id="leadForm" class="row g-3 needs-validation" novalidate>
             <div class="col-md-5">
               <label class="form-label mb-1">Nama</label>
-              <input class="form-control" id="nama" placeholder="Nama Anda" required>
+              <input class="form-control" id="nama" placeholder="Nama Anda" required />
               <div class="invalid-feedback">Nama wajib diisi.</div>
             </div>
             <div class="col-md-7">
               <label class="form-label mb-1">No. WhatsApp <small class="text-muted">(format 62…)</small></label>
-              <input class="form-control" id="wa" placeholder="62xxxxxxxxxx" pattern="^62[0-9]{8,15}$" required>
+              <input class="form-control" id="wa" placeholder="62xxxxxxxxxx" pattern="^62[0-9]{8,15}$" required />
               <div class="invalid-feedback">Gunakan format 62 diikuti angka (contoh: 62812xxxxxxx).</div>
             </div>
             <div class="col-12">
               <label class="form-label mb-1">Email <small class="text-muted">(untuk kirim akses)</small></label>
-              <input class="form-control" id="email" type="email" placeholder="emailkamu@email.com" required>
+              <input class="form-control" id="email" type="email" placeholder="emailkamu@email.com" required />
               <div class="invalid-feedback">Isi email yang valid.</div>
             </div>
             <div class="col-12 d-grid d-md-flex gap-2">
@@ -226,12 +207,12 @@
           <div class="glass p-3 p-md-4">
             <div class="row g-3">
               <div class="col-12">
-                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital" loading="lazy">
+                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital" loading="lazy" />
               </div>
             </div>
             <div class="mt-3 small text-muted">
               Pembayaran diproses aman oleh
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Xendit_Logo.png" width="72" alt="Xendit" class="ms-1 align-text-top">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Xendit_Logo.png" width="72" alt="Xendit" class="ms-1 align-text-top" />
               .
             </div>
           </div><!-- /glass -->
@@ -338,7 +319,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 bg-white">
-              <img src="assets/kisi-kisi-produk.jpg" class="object-fit-contain" alt="Kisi-kisi Produk" loading="lazy">
+              <img src="assets/kisi-kisi-produk.jpg" class="object-fit-contain" alt="Kisi-kisi Produk" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Kategori lengkap untuk berbagai niche</li>
@@ -358,7 +339,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
-              <img src="assets/spesial-edition.jpg" class="w-100 h-100 object-fit-cover" alt="Spesial Edition" loading="lazy">
+              <img src="assets/spesial-edition.jpg" class="w-100 h-100 object-fit-cover" alt="Spesial Edition" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Cocok untuk premium offer/bundling</li>
@@ -378,7 +359,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
-              <img src="assets/laris-lokal.jpg" class="object-fit-contain" alt="Produk Laris Lokal" loading="lazy">
+              <img src="assets/laris-lokal.jpg" class="object-fit-contain" alt="Produk Laris Lokal" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Relevan dengan market lokal</li>
@@ -398,7 +379,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
-              <img src="assets/1755760411026-Desain-tanpa-judul-10.jpg" class="object-fit-contain" alt="Marketing Kit" loading="lazy">
+              <img src="assets/1755760411026-Desain-tanpa-judul-10.jpg" class="object-fit-contain" alt="Marketing Kit" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Template iklan & caption</li>
@@ -418,7 +399,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
-              <img src="assets/panduan-ads.jpg" class="w-100 h-100 object-fit-cover" alt="Panduan Ads" loading="lazy">
+              <img src="assets/panduan-ads.jpg" class="w-100 h-100 object-fit-cover" alt="Panduan Ads" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Riset, creative, & struktur campaign</li>
@@ -438,7 +419,7 @@
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
-              <img src="assets/update-rutin.jpg" class="object-fit-contain" alt="Update Produk" loading="lazy">
+              <img src="assets/update-rutin.jpg" class="object-fit-contain" alt="Update Produk" loading="lazy" />
             </div>
             <ul class="list-unstyled list-check mt-3 small">
               <li><i class="fa-solid fa-check me-2"></i> Update berkala tanpa biaya tambahan</li>
@@ -546,7 +527,7 @@
         <div class="col-md-4">
           <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
             <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/sarah/40/40" class="rounded-circle" width="40" height="40" alt="Sarah">
+              <img src="https://picsum.photos/seed/sarah/40/40" class="rounded-circle" width="40" height="40" alt="Sarah" />
               <div>
                 <div class="fw-semibold">Sarah • Marketing UKM</div>
                 <small class="muted">Surabaya</small>
@@ -558,7 +539,7 @@
         <div class="col-md-4">
           <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
             <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/budi/40/40" class="rounded-circle" width="40" height="40" alt="Budi">
+              <img src="https://picsum.photos/seed/budi/40/40" class="rounded-circle" width="40" height="40" alt="Budi" />
               <div>
                 <div class="fw-semibold">Budi • Agency Owner</div>
                 <small class="muted">Yogyakarta</small>
@@ -570,7 +551,7 @@
         <div class="col-md-4">
           <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
             <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/fitri/40/40" class="rounded-circle" width="40" height="40" alt="Fitri">
+              <img src="https://picsum.photos/seed/fitri/40/40" class="rounded-circle" width="40" height="40" alt="Fitri" />
               <div>
                 <div class="fw-semibold">Fitri • Side Hustle</div>
                 <small class="muted">Bekasi</small>
@@ -626,7 +607,7 @@
           <h2 class="accordion-header" id="q4">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4">Kalau salah ketik email?</button>
           </h2>
-          <div id="a4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+        <div id="a4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body small text-muted">
               Tenang, kontak kami via WhatsApp di <a id="faqWA" href="#" target="_blank" rel="noopener">085156042869</a> dengan bukti pembayaran—kami bantu kirim ulang link akses.
             </div>
@@ -643,7 +624,7 @@
             </div>
           </div>
         </div>
-        <!-- Tambahan FAQ (untuk panjang halaman) -->
+        <!-- Tambahan FAQ -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="q6">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a6">Bisa minta invoice/kwitansi pembelian?</button>
@@ -664,7 +645,6 @@
             </div>
           </div>
         </div>
-        <!-- (Bisa tambah lebih banyak Q&A bila mau) -->
       </div>
 
       <div class="alert alert-warning mt-4 small">
@@ -691,7 +671,7 @@
                 <div class="display-4 fw-bolder text-success" id="priceMain">Rp 0</div>
                 <div class="small text-uppercase fw-bold mb-3">Hanya Untuk Hari Ini</div>
 
-                <hr>
+                <hr />
 
                 <div class="small text-uppercase fw-bold mb-2">Penawaran Berakhir Dalam:</div>
                 <div class="count-box justify-content-center mb-3">
@@ -705,7 +685,7 @@
               </div>
             </div>
 
-            <hr class="my-3">
+            <hr class="my-3" />
 
             <div class="row g-3">
               <div class="col-md-6">
@@ -768,7 +748,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- ============================== APP JS ============================= -->
-  <!-- Mengatur harga dinamis, countdown, Pixel events, submit → create-invoice -->
+  <!-- Mengatur harga dinamis, countdown, Pixel events, submit → create-invoice, schema JSON-LD -->
   <script src="assets/app.js"></script>
 
   <!-- ============================== SMALL HELPERS ====================== -->
@@ -784,8 +764,5 @@
     })();
   </script>
 
-  <!-- ===================================================================
-       END OF FILE
-       =================================================================== -->
 </body>
 </html>
