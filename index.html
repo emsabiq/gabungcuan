@@ -1,124 +1,107 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
+  <!-- =======================================================================
+       INDEX.HTML — GABUNG DAPAT CUAN (Landing + Checkout)
+       Catatan:
+       - Harga diambil dari assets/config.js → CONFIG.PRODUCT_DEFAULT.price
+       - Form submit → fetch Worker /api/create-invoice → redirect ke Xendit
+       - Pixel: PageView inisialisasi di assets/pixel.js; AddToCart/InitiateCheckout di assets/app.js
+       - Banyak section untuk kebutuhan halaman panjang (SEO/Ads Quality)
+       ======================================================================= -->
+
+  <meta charset="utf-8" />
   <title>Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual (PLR/MRR)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- SEO & OG -->
-  <meta name="description" content="1x akses, 8JT+ produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung bisa jual tanpa produksi sendiri. Harga spesial Rp99.000.">
-  <meta property="og:title" content="Gabung Dapat Cuan — 8JT+ Produk Digital Siap Jual">
+  <!-- SEO / Open Graph -->
+  <meta name="description" content="1x akses, produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung jual. Akses dikirim otomatis ke email setelah pembayaran berhasil.">
+  <meta property="og:title" content="Gabung Dapat Cuan — Produk Digital Siap Jual (PLR/MRR)">
   <meta property="og:description" content="Masterkit U-PLR, PLR & MRR. Rebrand bebas, katalog raksasa, update gratis. Ambil akses sekarang.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/cover.jpg">
+  <meta property="og:site_name" content="gabungcuan">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/style.css">
+
   <style>
     :root{
-      --brand:#16a34a;       /* green-600 */
-      --brand-soft:#ecfdf5;  /* green-50 */
-      --ink:#0f172a;
-      --muted:#6b7280;
+      --brand:#16a34a; --brand-ink:#0b1220; --muted:#6b7280; --soft:#ecfdf5; --ink:#0f172a;
+      --bg:#fafafa; --border:#e5e7eb;
     }
     html{ scroll-behavior:smooth; }
-    body{ color:var(--ink); }
+    body{ color:var(--ink); background:var(--bg); }
     .navbar{ backdrop-filter:saturate(140%) blur(6px); }
-    .brand-badge{
-      width:34px;height:34px;border-radius:9px;
-      background:linear-gradient(135deg,#059669,#16a34a);
-      display:inline-block;position:relative;
-    }
-    .brand-badge:after{
-      content:"\f02d"; /* fa-images */
-      font:900 16px "Font Awesome 6 Free";
-      color:#fff;position:absolute;left:50%;top:50%;
-      transform:translate(-50%,-50%);
-    }
+    .brand-badge{ width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#059669,#16a34a);display:inline-block;position:relative; }
+    .brand-badge:after{ content:"\f02d"; font:900 16px "Font Awesome 6 Free"; color:#fff; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
     .hero{
       background:
-        radial-gradient(1200px 480px at 20% -10%, #f0fdf4 0, rgba(240,253,244,0) 60%),
-        radial-gradient(1000px 420px at 100% 0%, #ecfeff 0, rgba(236,254,255,0) 55%),
-        #ffffff;
+      radial-gradient(1200px 480px at 20% -10%, #f0fdf4 0, rgba(240,253,244,0) 60%),
+      radial-gradient(1000px 420px at 100% 0%, #ecfeff 0, rgba(236,254,255,0) 55%),
+      #ffffff;
     }
-    .glass{
-      background:rgba(255,255,255,.7);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(15,23,42,.06);
-      border-radius:16px;
-      box-shadow:0 20px 40px rgba(2,6,23,.08);
-    }
-    .check-pill{
-      background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;
-      padding:.35rem .75rem;font-size:.85rem
-    }
-    .icon-circle{
-      width:42px;height:42px;border-radius:999px;
-      display:inline-flex;align-items:center;justify-content:center;
-      background:var(--brand-soft);color:var(--brand);
-    }
-    .feature .icon-circle{ width:36px;height:36px; }
+    .glass{ background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1px solid rgba(15,23,42,.06); border-radius:16px; box-shadow:0 20px 40px rgba(2,6,23,.08);}
+    .check-pill{ background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;padding:.35rem .75rem;font-size:.85rem }
+    .icon-circle{ width:42px;height:42px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--soft);color:var(--brand);}
     .muted{ color:var(--muted)!important; }
     .section-title{ font-weight:800; letter-spacing:-.02em; }
-    .price-tag{
-      display:inline-flex;align-items:center;gap:.5rem;
-      background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;
-      padding:.4rem .8rem;font-weight:600;color:#1f2937;
-    }
+    .price-tag{ display:inline-flex;align-items:center;gap:.5rem;background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;padding:.4rem .8rem;font-weight:600;color:#1f2937; }
     .shadow-soft{ box-shadow:0 10px 30px rgba(2,6,23,.06); }
-
-    /* Countdown */
-    .count-box{
-      display:flex;gap:.75rem;flex-wrap:wrap;
-    }
-    .time{
-      min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;
-      background:#fff;border:1px solid #e5e7eb;
-    }
+    .ratio-thumb{ border:1px solid #e5e7eb;border-radius:12px;overflow:hidden; }
+    .count-box{ display:flex;gap:.75rem;flex-wrap:wrap; }
+    .time{ min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;background:#fff;border:1px solid #e5e7eb; }
     .time .num{ font-size:1.5rem;font-weight:800;color:#111827; }
     .time .lab{ font-size:.75rem;color:#6b7280; }
-
-    /* Floating CTA (mobile) */
-    .floating-cta{
-      position:fixed;left:0;right:0;bottom:-100px;
-      background:#111827;color:#fff;z-index:9999;
-      transition:bottom .35s ease;padding:.75rem 1rem;
-    }
+    .floating-cta{ position:fixed;left:0;right:0;bottom:-100px;background:#111827;color:#fff;z-index:9999;transition:bottom .35s ease;padding:.75rem 1rem; }
     .floating-cta.show{ bottom:0; }
-    .floating-cta .btn{ white-space:nowrap; }
-    .badge-soft{
-      background:var(--brand-soft);color:var(--brand);border:1px solid #bbf7d0;
-    }
-    .bg-stripe{
-      background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06));
-    }
-    .ratio-thumb{
-      border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;
-    }
+    .bg-stripe{ background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06)); }
     .smallcaps{font-variant:all-small-caps;letter-spacing:.06em}
+
+    /* Cards */
+    .card-lite{ border:1px solid var(--border); border-radius:16px; background:#fff; }
+    .list-check li{ margin-bottom:.4rem; }
+    .list-check .fa-check{ color:#16a34a }
+
+    /* Tables */
+    .table-compare th, .table-compare td{ vertical-align:middle; }
+
+    /* Utility */
+    .lh-tight{ line-height:1.2 }
   </style>
 
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1328311132182013'); /* <-- ganti jika perlu */
-  fbq('track', 'PageView');
+  <!-- Load config BEFORE anything using it -->
+  <script src="assets/config.js"></script>
+  <!-- Load Pixel using CONFIG.PIXEL_ID -->
+  <script src="assets/pixel.js" defer></script>
+
+  <!-- JSON-LD Schema (Organization + Product) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Product",
+    "name":"Akses Digital Licence Masterkit U PLR MRR",
+    "brand":{"@type":"Organization","name":"gabungcuan"},
+    "description":"Paket besar produk digital dengan lisensi PLR/MRR siap jual ulang. Rebrand, posting, langsung jual.",
+    "offers":{
+      "@type":"Offer",
+      "priceCurrency":"IDR",
+      "price":"99000",
+      "availability":"https://schema.org/InStock"
+    }
+  }
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1328311132182013&ev=PageView&noscript=1"/></noscript>
-  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ============================== NAVBAR ============================== -->
   <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
@@ -134,36 +117,37 @@
         <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-3">
           <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
           <li class="nav-item"><a class="nav-link" href="#isi">Isi Paket</a></li>
+          <li class="nav-item"><a class="nav-link" href="#langkah">Langkah</a></li>
+          <li class="nav-item"><a class="nav-link" href="#banding">Banding</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testi">Testi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
         </ul>
 
         <div class="d-flex align-items-center gap-2 flex-column flex-lg-row mt-3 mt-lg-0">
           <a class="btn btn-outline-secondary w-100 w-lg-auto" href="#testi">
-            <i class="fa-solid fa-star me-1"></i>
-            Testimoni
+            <i class="fa-solid fa-star me-1"></i> Testimoni
           </a>
-          <!-- Login dihapus -->
           <a class="btn btn-success w-100 w-lg-auto" href="#checkout">
-            <i class="fa-solid fa-bolt me-1"></i>
-            Dapatkan Akses
+            <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses
           </a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- =============================== HERO =============================== -->
   <section class="hero py-6">
     <div class="container">
       <div class="row g-4 align-items-center">
         <div class="col-lg-6">
           <div class="d-flex align-items-center gap-2 mb-2">
             <span class="check-pill"><i class="fa-solid fa-database me-1 text-success"></i> 1x Akses = <strong>10JT+</strong> Produk Digital Siap Jual</span>
-            <span class="check-pill d-none d-md-inline"><i class="fa-solid fa-shield-check me-1 text-primary"></i> Hak <strong>PLR/MRR</strong> — Lisensi Jual Kembali</span>
+            <span class="check-pill d-none d-md-inline"><i class="fa-solid fa-shield-halved me-1 text-primary"></i> Hak <strong>PLR/MRR</strong> — Lisensi Resmi</span>
           </div>
 
-          <h1 class="display-5 fw-bold mb-2">Gabung Dapat <span class="text-success">Cuan</span></h1>
+          <h1 class="display-5 fw-bold mb-2 lh-tight">Gabung Dapat <span class="text-success">Cuan</span></h1>
           <p class="lead text-muted mb-2">
-            Tanpa produksi sendiri. Tinggal rebrand, posting, dan jual. Katalog besar, niche luas, eksekusi lebih cepat.
+            Tanpa produksi sendiri. Rebrand, posting, langsung jual. Katalog besar, niche luas, eksekusi makin cepat.
           </p>
 
           <div class="d-flex align-items-center gap-2 mb-2">
@@ -176,13 +160,13 @@
           <!-- PRICE & DEADLINE -->
           <div class="glass p-3 p-md-4 mb-4 shadow-soft" id="checkout">
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-              <div class="price-tag shadow-sm rounded-pill d-flex align-items-center justify-content-between p-2" style="background-color: #ecfdf5; border: 1px solid #bbf7d0; flex-grow: 1;">
+              <div class="price-tag shadow-sm rounded-pill d-flex align-items-center justify-content-between p-2" style="background-color:#ecfdf5;border:1px solid #bbf7d0;flex-grow:1;">
                 <div class="px-3">
-                  <span class="d-block text-muted" style="font-size: 0.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
-                  <span class="d-block text-muted" style="font-size: 0.8rem;">Harga Normal: <s>Rp 800.000</s></span>
+                  <span class="d-block text-muted" style="font-size:.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
+                  <span class="d-block text-muted" style="font-size:.8rem;">Harga Normal: <s>Rp 800.000</s></span>
                 </div>
                 <div class="bg-success text-white rounded-pill px-4 py-2">
-                  <strong class="fs-5" id="priceBadge">Rp 99.000</strong>
+                  <strong class="fs-5" id="priceBadge">Rp 0</strong>
                 </div>
               </div>
               <div class="small text-muted text-nowrap">
@@ -191,7 +175,7 @@
             </div>
           </div>
 
-          <!-- FORM CHECKOUT (flow baru) -->
+          <!-- FORM CHECKOUT (Flow Email-Only) -->
           <form id="leadForm" class="row g-3 needs-validation" novalidate>
             <div class="col-md-5">
               <label class="form-label mb-1">Nama</label>
@@ -228,7 +212,7 @@
               <div class="time shadow-sm"><div class="num text-danger" id="s">54</div><div class="lab">Detik</div></div>
             </div>
             <div class="small mt-3 fw-bold text-danger">
-              <i class="fa-solid fa-triangle-exclamation me-1"></i> Harga Rp99.000 hanya sampai pukul 23:59 hari ini!
+              <i class="fa-solid fa-triangle-exclamation me-1"></i> Harga <span id="priceInline">Rp 0</span> hanya sampai pukul 23:59 hari ini!
             </div>
           </div>
 
@@ -242,8 +226,7 @@
           <div class="glass p-3 p-md-4">
             <div class="row g-3">
               <div class="col-12">
-                <!-- Ganti src sesuai file kamu -->
-                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital">
+                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital" loading="lazy">
               </div>
             </div>
             <div class="mt-3 small text-muted">
@@ -257,7 +240,7 @@
     </div>
   </section>
 
-  <!-- PAIN / PROBLEM -->
+  <!-- =============================== PAIN =============================== -->
   <section id="pain" class="py-5">
     <div class="container">
       <h2 class="section-title h3 mb-3">Mau mulai jualan digital, tapi realitanya gini? 🤔</h2>
@@ -265,7 +248,7 @@
         <div class="col-md-6">
           <ul class="list-unstyled muted">
             <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Bingung mau mulai dari mana. Waktu jalan, bisnis nggak jalan.</li>
-            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Bikin produk sendiri makan waktu berbulan-bulan—ujungnya nggak siap dijual.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Bikin produk sendiri makan waktu berbulan-bulan—ujungnya tidak siap dijual.</li>
             <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Produk buat dijual terlalu sedikit. Susah testing niche, akhirnya stuck.</li>
             <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Desain & promosi makan energi. Belum sempat jualan, sudah capek teknis.</li>
           </ul>
@@ -279,31 +262,31 @@
           </ul>
         </div>
       </div>
-      <div class="alert alert-success mt-3"><strong>Ini dia solusi praktisnya:</strong> 10JT+ Digital Licence Masterkit — tinggal rebrand, posting, dan langsung bisa jual. Ditambah Video Tutorial Mahir FB/IG Ads</div>
+      <div class="alert alert-success mt-3"><strong>Solusi praktis:</strong> 10JT+ Digital Licence Masterkit — tinggal rebrand, posting, dan langsung bisa jual. Ditambah Video Tutorial Mahir FB/IG Ads.</div>
     </div>
   </section>
 
-  <!-- BENEFIT -->
-  <section id="fitur" class="py-5 bg-stripe">
+  <!-- ============================== BENEFIT ============================= -->
+  <section id="fitur" class="py-5 bg-white border-top">
     <div class="container">
       <h2 class="section-title h3 mb-4">Kenapa Masterkit Ini Berharga?</h2>
       <div class="row g-3 g-md-4">
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-layer-group"></i></div>
             <div class="fw-semibold mb-1">Katalog Raksasa</div>
             <div class="muted small">Ribuan niche bisa langsung dites. Kamu bergerak cepat, cari win cepat.</div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-brush"></i></div>
             <div class="fw-semibold mb-1">Rebrand Bebas</div>
             <div class="muted small">Ganti nama, gaya, bundling—jual lebih mahal dengan positioning yang kamu mau.</div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-infinity"></i></div>
             <div class="fw-semibold mb-1">Modal Sekali, Dipakai Selamanya</div>
             <div class="muted small">Satu kali akses, asetmu tak habis dipakai. Repeat & scale lebih mudah.</div>
@@ -311,38 +294,42 @@
         </div>
 
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-shield-heart"></i></div>
             <div class="fw-semibold mb-1">Lisensi Resmi</div>
             <div class="muted small">Jualan aman sesuai aturan PLR/MRR. Panduan & batasan dipaparkan jelas.</div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-rocket"></i></div>
             <div class="fw-semibold mb-1">Produk Laris Siap Jual</div>
             <div class="muted small">Tanpa bikin dari nol. Tinggal kemas, pasang, dan mulai testing.</div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="feature p-3 border rounded-4 h-100 bg-white">
+          <div class="p-3 card-lite h-100">
             <div class="icon-circle mb-2"><i class="fa-solid fa-rotate"></i></div>
             <div class="fw-semibold mb-1">Free Update</div>
             <div class="muted small">Update berkala tanpa biaya tambahan. Kamu selalu punya stok baru.</div>
           </div>
         </div>
       </div>
+
+      <div class="alert alert-info mt-4 small">
+        <strong>Pro tip:</strong> fokus 1–2 niche dulu, jalankan testing kreatif harian, lalu scale yang sudah terbukti.
+      </div>
     </div>
   </section>
 
-  <!-- WHAT YOU GET -->
-  <section id="isi" class="py-5">
+  <!-- ============================= WHAT YOU GET ========================= -->
+  <section id="isi" class="py-5 bg-white border-top">
     <div class="container">
       <h2 class="section-title h3 mb-4">Apa Saja yang Kamu Dapatkan?</h2>
 
       <div class="row g-4">
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-solid fa-database"></i></span>
               <div>
@@ -353,11 +340,16 @@
             <div class="ratio ratio-16x9 bg-white">
               <img src="assets/kisi-kisi-produk.jpg" class="object-fit-contain" alt="Kisi-kisi Produk" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Kategori lengkap untuk berbagai niche</li>
+              <li><i class="fa-solid fa-check me-2"></i> File editable (jika tersedia dalam paket)</li>
+              <li><i class="fa-solid fa-check me-2"></i> Siap rebrand & kemas ulang</li>
+            </ul>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-solid fa-gem"></i></span>
               <div>
@@ -368,11 +360,16 @@
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
               <img src="assets/spesial-edition.jpg" class="w-100 h-100 object-fit-cover" alt="Spesial Edition" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Cocok untuk premium offer/bundling</li>
+              <li><i class="fa-solid fa-check me-2"></i> Visual & copy mudah diadaptasi</li>
+              <li><i class="fa-solid fa-check me-2"></i> Potensi margin lebih tinggi</li>
+            </ul>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-solid fa-fire"></i></span>
               <div>
@@ -383,26 +380,36 @@
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
               <img src="assets/laris-lokal.jpg" class="object-fit-contain" alt="Produk Laris Lokal" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Relevan dengan market lokal</li>
+              <li><i class="fa-solid fa-check me-2"></i> Mendukung bahasa & konteks Indonesia</li>
+              <li><i class="fa-solid fa-check me-2"></i> Siap pakai untuk campaign cepat</li>
+            </ul>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-solid fa-briefcase"></i></span>
               <div>
                 <div class="fw-semibold">4) Premium Marketing Kit</div>
-                <small class="muted">Branding, promosi, & materi penjualan level profesional. Hemat waktu, tetap terlihat rapi.</small>
+                <small class="muted">Branding, promosi, & materi penjualan level profesional.</small>
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
               <img src="assets/1755760411026-Desain-tanpa-judul-10.jpg" class="object-fit-contain" alt="Marketing Kit" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Template iklan & caption</li>
+              <li><i class="fa-solid fa-check me-2"></i> Mockup & asset visual</li>
+              <li><i class="fa-solid fa-check me-2"></i> Struktur landing & email</li>
+            </ul>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-brands fa-square-instagram"></i></span>
               <div>
@@ -413,38 +420,266 @@
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
               <img src="assets/panduan-ads.jpg" class="w-100 h-100 object-fit-cover" alt="Panduan Ads" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Riset, creative, & struktur campaign</li>
+              <li><i class="fa-solid fa-check me-2"></i> Optimasi CTR & CPA</li>
+              <li><i class="fa-solid fa-check me-2"></i> Retargeting & scale</li>
+            </ul>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="d-flex align-items-start gap-2 mb-2">
               <span class="icon-circle"><i class="fa-solid fa-rotate"></i></span>
               <div>
                 <div class="fw-semibold">6) Free Update Produk</div>
-                <small class="muted">Tambah produk baru = bertambah kesempatan jual. Update otomatis tanpa biaya.</small>
+                <small class="muted">Tambah produk baru = bertambah kesempatan jual.</small>
               </div>
             </div>
             <div class="ratio ratio-16x9 ratio-thumb bg-white">
               <img src="assets/update-rutin.jpg" class="object-fit-contain" alt="Update Produk" loading="lazy">
             </div>
+            <ul class="list-unstyled list-check mt-3 small">
+              <li><i class="fa-solid fa-check me-2"></i> Update berkala tanpa biaya tambahan</li>
+              <li><i class="fa-solid fa-check me-2"></i> Koleksi terus berkembang</li>
+              <li><i class="fa-solid fa-check me-2"></i> Fresh untuk campaign baru</li>
+            </ul>
           </div>
         </div>
       </div>
 
       <div class="alert alert-success mt-4">
-        <strong>Artinya:</strong> kamu bisa fokus jualan digital—tanpa repot produksi, desain, atau bikin produk dari nol. <a href="#checkout" class="alert-link">Ambil akses sekarang</a>.
+        <strong>Intinya:</strong> fokus jualan—tanpa repot produksi, desain, atau bikin produk dari nol. <a href="#checkout" class="alert-link">Ambil akses sekarang</a>.
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
+  <!-- ============================== HOW IT WORKS ======================== -->
+  <section id="langkah" class="py-5 bg-stripe">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Cara Kerja (3 Langkah Cepat)</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-cart-shopping"></i></div>
+            <div class="fw-semibold mb-1">1) Checkout</div>
+            <div class="muted small">Isi nama, WA, email → bayar via Xendit.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-envelope-circle-check"></i></div>
+            <div class="fw-semibold mb-1">2) Email Akses</div>
+            <div class="muted small">Setelah <b>PAID</b>, sistem otomatis mengirim 2 link materi ke emailmu.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-gear"></i></div>
+            <div class="fw-semibold mb-1">3) Eksekusi</div>
+            <div class="muted small">Pilih produk, rebrand ringan, mulai jual. Ulangi & scale.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-secondary mt-4 small">
+        Jika email belum masuk, cek <b>Spam/Promotions</b>. Masih kendala? Hubungi WhatsApp bantuan: <a id="waHelp" href="#" target="_blank" rel="noopener">085156042869</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== COMPARISON ========================== -->
+  <section id="banding" class="py-5 bg-white border-top">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Kenapa Paket Ini Lebih Masuk Akal?</h2>
+      <div class="table-responsive">
+        <table class="table table-compare align-middle">
+          <thead class="table-light">
+            <tr>
+              <th> </th>
+              <th>Gabung Dapat Cuan</th>
+              <th>Bikin Produk Sendiri</th>
+              <th>Beli per Produk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kecepatan Mulai</td>
+              <td><i class="fa-solid fa-check text-success"></i> Langsung jual</td>
+              <td><i class="fa-solid fa-xmark text-danger"></i> Lama (riset, produksi)</td>
+              <td><i class="fa-solid fa-minus text-warning"></i> Tergantung produk</td>
+            </tr>
+            <tr>
+              <td>Biaya Awal</td>
+              <td><i class="fa-solid fa-check text-success"></i> Rendah (sekali bayar)</td>
+              <td><i class="fa-solid fa-xmark text-danger"></i> Tinggi (alat & waktu)</td>
+              <td><i class="fa-solid fa-minus text-warning"></i> Menumpuk per item</td>
+            </tr>
+            <tr>
+              <td>Skalabilitas</td>
+              <td><i class="fa-solid fa-check text-success"></i> Tinggi (katalog besar)</td>
+              <td><i class="fa-solid fa-xmark text-danger"></i> Terbatas kapasitas</td>
+              <td><i class="fa-solid fa-minus text-warning"></i> Terbatas stok beli</td>
+            </tr>
+            <tr>
+              <td>Risiko Gagal</td>
+              <td><i class="fa-solid fa-check text-success"></i> Rendah (bisa testing banyak)</td>
+              <td><i class="fa-solid fa-xmark text-danger"></i> Tinggi (1–2 produk saja)</td>
+              <td><i class="fa-solid fa-minus text-warning"></i> Sedang (tergantung pilihan)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-3">
+        <a class="btn btn-success" href="#checkout"><i class="fa-solid fa-bolt me-1"></i> Ambil Akses Sekarang — <span id="priceCta">Rp 0</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== TESTIMONIALS ======================== -->
+  <section id="testi" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Testimoni dari yang sudah mencoba</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/sarah/40/40" class="rounded-circle" width="40" height="40" alt="Sarah">
+              <div>
+                <div class="fw-semibold">Sarah • Marketing UKM</div>
+                <small class="muted">Surabaya</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Gila, ini paket terlengkap yang pernah saya beli. Dari e-book, template, sampai marketing kit, semua ada. Nggak perlu pusing mikirin produksi, tinggal fokus jualan. Sebulan pertama langsung balik modal berkali-kali lipat!”</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/budi/40/40" class="rounded-circle" width="40" height="40" alt="Budi">
+              <div>
+                <div class="fw-semibold">Budi • Agency Owner</div>
+                <small class="muted">Yogyakarta</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Awalnya skeptis, tapi setelah dijalani, hasilnya luar biasa. Sekarang omzet stabil di angka 200jt/bulan. Kuncinya karena marketnya masih luas dan belum banyak yang tahu cara manfaatin aset PLR begini. Peluangnya emas banget.”</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 card-lite h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/fitri/40/40" class="rounded-circle" width="40" height="40" alt="Fitri">
+              <div>
+                <div class="fw-semibold">Fitri • Side Hustle</div>
+                <small class="muted">Bekasi</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Alhamdulillah, impian saya bawa orang tua Umroh dan ajak keluarga liburan akhirnya terwujud dari hasil jualan produk digital ini. Nggak pernah nyangka bisnis yang modalnya cuma segini bisa ngasih dampak sebesar ini ke hidup saya.”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FAQ (Panjang) ======================= -->
+  <section id="faq" class="py-5 bg-white border-top">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Pertanyaan yang Sering Diajukan</h2>
+      <div class="accordion" id="faqAcc">
+        <!-- 1 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a1">Apa itu PLR/MRR dan apa yang boleh saya lakukan?</button>
+          </h2>
+          <div id="a1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              <strong>PLR (Private Label Rights)</strong> & <strong>MRR (Master Resell Rights)</strong> memberi hak untuk memodifikasi & menjual kembali sesuai ketentuan lisensi. Umumnya kamu boleh rebrand, bundling, dan menjual ulang dengan harga sendiri. Baca manifest lisensi tiap pack untuk batasan khusus (mis. redistribusi file mentah ke marketplace tertentu).
+            </div>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2">Bagaimana saya menerima akses setelah bayar?</button>
+          </h2>
+          <div id="a2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Setelah status pembayaran <b>PAID</b> dari Xendit, sistem otomatis mengirim <b>2 link akses</b> ke email kamu. Jika belum masuk, cek <b>Spam/Promotions</b> atau hubungi WhatsApp bantuan.
+            </div>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3">Apakah harganya tetap segini?</button>
+          </h2>
+          <div id="a3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Harga promo saat ini adalah <b><span id="priceFaq">Rp 0</span></b>. Promo bisa berubah sewaktu-waktu sesuai periode kampanye.
+            </div>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4">Kalau salah ketik email?</button>
+          </h2>
+          <div id="a4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Tenang, kontak kami via WhatsApp di <a id="faqWA" href="#" target="_blank" rel="noopener">085156042869</a> dengan bukti pembayaran—kami bantu kirim ulang link akses.
+            </div>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q5">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a5">Apakah bisa re-akses materi berkali-kali?</button>
+          </h2>
+          <div id="a5" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Ya. Link akses di email bisa kamu buka kapan saja. Mohon tidak membagikan link secara publik agar tetap sesuai lisensi.
+            </div>
+          </div>
+        </div>
+        <!-- Tambahan FAQ (untuk panjang halaman) -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q6">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a6">Bisa minta invoice/kwitansi pembelian?</button>
+          </h2>
+          <div id="a6" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Bisa. Balas email akses atau chat WhatsApp, sebutkan detail (nama, email, tanggal transaksi) untuk kami kirimkan.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="q7">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a7">Apakah ada garansi?</button>
+          </h2>
+          <div id="a7" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+            <div class="accordion-body small text-muted">
+              Kami menyediakan bantuan teknis jika ada kendala akses. Untuk konten, ikuti batasan lisensi dan gunakan sesuai peruntukan.
+            </div>
+          </div>
+        </div>
+        <!-- (Bisa tambah lebih banyak Q&A bila mau) -->
+      </div>
+
+      <div class="alert alert-warning mt-4 small">
+        <strong>Catatan:</strong> Selalu baca & patuhi manifest lisensi tiap produk. Hindari distribusi massal file mentah di kanal yang dilarang lisensi.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PRICING ============================= -->
   <section id="harga" class="py-5">
     <div class="container">
       <h2 class="section-title h3 mb-3">Penawaran Spesial ✨ (Update <span id="offer-date"></span>)</h2>
       <div class="row g-4">
         <div class="col-lg-8">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <div class="card shadow-sm border-warning">
               <div class="card-body text-center p-4">
                 <div class="text-muted mb-2">
@@ -452,9 +687,12 @@
                   <span class="mx-2">|</span>
                   <span>Harga Normal <s>Rp 800.000</s></span>
                 </div>
-                <div class="display-4 fw-bolder text-success" id="priceMain">Rp 99.000</div>
+
+                <div class="display-4 fw-bolder text-success" id="priceMain">Rp 0</div>
                 <div class="small text-uppercase fw-bold mb-3">Hanya Untuk Hari Ini</div>
+
                 <hr>
+
                 <div class="small text-uppercase fw-bold mb-2">Penawaran Berakhir Dalam:</div>
                 <div class="count-box justify-content-center mb-3">
                   <div class="time shadow-sm"><div class="num text-danger" id="h2">09</div><div class="lab">Jam</div></div>
@@ -482,7 +720,7 @@
               </div>
               <div class="col-md-6 d-grid gap-2">
                 <a class="btn btn-success btn-lg" href="#checkout">
-                  <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses Sekarang — <span id="priceCta">Rp 99.000</span>
+                  <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses Sekarang — <span id="priceCta">Rp 0</span>
                 </a>
                 <a class="btn btn-outline-success" href="#testi"><i class="fa-solid fa-star me-1"></i> Lihat Testimoni</a>
               </div>
@@ -491,7 +729,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="p-4 border rounded-4 h-100">
+          <div class="p-4 card-lite h-100">
             <h6 class="fw-bold mb-2">Bayangkan… 💡</h6>
             <p class="small muted mb-2">
               Cukup modal terjangkau, kamu pegang paket lengkap untuk buka peluang bisnis digital bernilai besar.
@@ -505,55 +743,10 @@
     </div>
   </section>
 
-  <!-- TESTI (placeholder) -->
-  <section id="testi" class="py-5 bg-light">
-    <div class="container">
-      <h2 class="section-title h3 mb-3">Testimoni dari yang sudah mencoba</h2>
-      <div class="row g-3">
-        <div class="col-md-4">
-          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/sarah/40/40" class="rounded-circle" width="40" height="40" alt="Sarah">
-              <div>
-                <div class="fw-semibold">Sarah • Marketing UKM</div>
-                <small class="muted">Surabaya</small>
-              </div>
-            </div>
-            <div class="small mt-auto">“Gila, ini paket terlengkap yang pernah saya beli. Dari e-book, template, sampai marketing kit, semua ada. Nggak perlu pusing mikirin produksi, tinggal fokus jualan. Sebulan pertama langsung balik modal berkali-kali lipat!”</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/budi/40/40" class="rounded-circle" width="40" height="40" alt="Budi">
-              <div>
-                <div class="fw-semibold">Budi • Agency Owner</div>
-                <small class="muted">Yogyakarta</small>
-              </div>
-            </div>
-            <div class="small mt-auto">“Awalnya skeptis, tapi setelah dijalani, hasilnya luar biasa. Sekarang omzet stabil di angka 200jt/bulan. Kuncinya karena marketnya masih luas dan belum banyak yang tahu cara manfaatin aset PLR begini. Peluangnya emas banget.”</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <img src="https://picsum.photos/seed/fitri/40/40" class="rounded-circle" width="40" height="40" alt="Fitri">
-              <div>
-                <div class="fw-semibold">Fitri • Side Hustle</div>
-                <small class="muted">Bekasi</small>
-              </div>
-            </div>
-            <div class="small mt-auto">“Alhamdulillah, impian saya bawa orang tua Umroh dan ajak keluarga liburan akhirnya terwujud dari hasil jualan produk digital ini. Nggak pernah nyangka bisnis yang modalnya cuma segini bisa ngasih dampak sebesar ini ke hidup saya. Benar-benar mengubah segalanya.”</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-top py-4">
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="border-top py-4 bg-white">
     <div class="container small d-flex flex-wrap gap-2 align-items-center justify-content-between">
-      <div>© <span id="y"></span> Aset Digital Cuan</div>
+      <div>© <span id="y"></span> gabungcuan</div>
       <div class="d-flex align-items-center gap-3">
         <a class="text-decoration-none muted" href="#harga"><i class="fa-solid fa-list-ul me-1"></i> Harga</a>
         <a class="btn btn-success btn-sm" href="#checkout">
@@ -563,164 +756,36 @@
     </div>
   </footer>
 
-  <!-- Floating CTA -->
+  <!-- ============================== FLOATING CTA ======================== -->
   <div class="floating-cta" id="floater" aria-hidden="true">
     <div class="container d-flex align-items-center justify-content-between gap-2">
-      <div class="small">Harga spesial <strong id="priceFloat">Rp99.000</strong> berakhir <strong>23:59</strong>—amankan aksesmu sekarang.</div>
+      <div class="small">Harga spesial <strong id="priceFloat">Rp 0</strong> berakhir <strong>23:59</strong>—amankan aksesmu sekarang.</div>
       <a href="#checkout" class="btn btn-success btn-sm"><i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses</a>
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- ============================== BOOTSTRAP JS ======================= -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ===================== CONFIG (EDIT JIKA PERLU) ===================== -->
-  <script>
-    const CONFIG = {
-      APP_ORIGIN: "https://gabungcuan.vercel.app",
-      API_BASE:   "https://gdc.msabiq-stan.workers.dev",
-      SUPPORT_WA_E164: "6285156042869",
-      PRODUCT_DEFAULT: {
-        id: "product-masterkit",
-        name: "Akses Digital Licence Masterkit U PLR MRR",
-        price: 99000,
-        currency: "IDR",
-        description: "Akses materi premium + bonus dikirim lewat email setelah pembayaran."
-      }
-    };
-  </script>
+  <!-- ============================== APP JS ============================= -->
+  <!-- Mengatur harga dinamis, countdown, Pixel events, submit → create-invoice -->
+  <script src="assets/app.js"></script>
 
-  <!-- ===================== APP (Create Invoice + UX) ===================== -->
+  <!-- ============================== SMALL HELPERS ====================== -->
   <script>
+    // Tahun footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Set WhatsApp help link (redundan utk FAQ/section lain)
     (function(){
-      const fmtIDR = v => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR'}).format(v);
-      const price = Number(CONFIG.PRODUCT_DEFAULT.price || 0) || 0;
-
-      // Set harga di beberapa tempat
-      const $ = sel => document.querySelector(sel);
-      const setTxt = (sel, val) => { const el = $(sel); if (el) el.textContent = val; };
-
-      setTxt('#priceBadge', fmtIDR(price));
-      setTxt('#priceMain', fmtIDR(price));
-      setTxt('#priceCta',  fmtIDR(price));
-      setTxt('#priceFloat', fmtIDR(price));
-
-      // Tahun footer
-      const y = $('#y'); if (y) y.textContent = new Date().getFullYear();
-
-      // Offer date (Bulan Tahun)
-      const namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-      const now = new Date(); const offerDate = `${namaBulan[now.getMonth()]} ${now.getFullYear()}`;
-      setTxt('#offer-date', offerDate);
-
-      // Countdown ke 23:59 hari ini
-      function tonight() {
-        const d = new Date(); const t = new Date(d);
-        t.setHours(23,59,59,999);
-        if (t - d <= 0){ t.setDate(t.getDate()+1); t.setHours(23,59,59,999); }
-        return t;
-      }
-      const end = tonight();
-      const ids = ['#h','#m','#s','#h2','#m2','#s2'].map(id => $(id));
-      function pad(n){ return n<10 ? '0'+n : ''+n; }
-      function tick(){
-        const n = new Date(); let diff = Math.max(0, end - n);
-        const hh = Math.floor(diff/1000/60/60); diff -= hh*60*60*1000;
-        const mm = Math.floor(diff/1000/60);    diff -= mm*60*1000;
-        const ss = Math.floor(diff/1000);
-        const vals = [pad(hh), pad(mm), pad(ss)];
-        // isi di dua blok countdown sekaligus jika elemen ada
-        if (ids[0]) ids[0].textContent = vals[0];
-        if (ids[1]) ids[1].textContent = vals[1];
-        if (ids[2]) ids[2].textContent = vals[2];
-        if (ids[3]) ids[3].textContent = vals[0];
-        if (ids[4]) ids[4].textContent = vals[1];
-        if (ids[5]) ids[5].textContent = vals[2];
-      }
-      tick(); setInterval(tick, 1000);
-
-      // Floating CTA on scroll
-      const floater = $('#floater'); let shown=false;
-      window.addEventListener('scroll', ()=>{
-        if (window.scrollY > 480 && !shown){ floater.classList.add('show'); floater.setAttribute('aria-hidden','false'); shown = true; }
-        if (window.scrollY <= 120 && shown){ floater.classList.remove('show'); floater.setAttribute('aria-hidden','true'); shown = false; }
-      });
-
-      // Form submit → create invoice → redirect
-      const form = $('#leadForm');
-      if (!form) return;
-
-      form.addEventListener('submit', async (ev)=>{
-        ev.preventDefault();
-        const btn = $('#btnBayar') || form.querySelector('button[type="submit"]');
-        const msg = $('#msg');
-
-        const nama  = $('#nama').value.trim();
-        const wa    = $('#wa').value.trim();
-        const email = $('#email').value.trim();
-
-        const waOK   = /^62[0-9]{8,15}$/.test(wa);
-        const mailOK = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-        if (!nama || !waOK || !mailOK) {
-          form.classList.add('was-validated');
-          if (msg){ msg.className = "small text-danger"; msg.textContent = "Cek kembali inputan kamu."; }
-          return;
-        }
-
-        // Pixel: AddToCart pada klik bayar
-        try { if (window.fbq) fbq('track', 'AddToCart', {content_name: CONFIG.PRODUCT_DEFAULT.name, value: price, currency: 'IDR'}); } catch(_){}
-
-        if (btn) btn.disabled = true;
-        if (msg){ msg.className = "small text-muted"; msg.textContent = "Membuat invoice…"; }
-
-        // simpan harga utk Purchase di success page (jaga-jaga)
-        try { localStorage.setItem('lastPrice', String(price)); } catch(_){}
-
-        // panggil Worker → GAS createInvoice
-        try {
-          const res = await fetch(`${CONFIG.API_BASE}/api/create-invoice`, {
-            method: 'POST',
-            headers: { 'Content-Type':'application/json' },
-            body: JSON.stringify({
-              productId:   CONFIG.PRODUCT_DEFAULT.id,
-              productName: CONFIG.PRODUCT_DEFAULT.name,
-              amount:      price,
-              currency:    CONFIG.PRODUCT_DEFAULT.currency || 'IDR',
-              baseUrl:     CONFIG.APP_ORIGIN,
-              customer: { name: nama, wa, email }
-            })
-          });
-          const j = await res.json();
-
-          if (!res.ok || !j.ok || !j.invoice_url) {
-            throw new Error(j && j.error ? j.error : 'create_failed');
-          }
-
-          // Pixel: InitiateCheckout
-          try { if (window.fbq) fbq('track', 'InitiateCheckout', {value: price, currency:'IDR'}); } catch(_){}
-
-          // redirect ke invoice Xendit
-          location.assign(j.invoice_url);
-        } catch (e) {
-          console.error(e);
-          if (btn) btn.disabled = false;
-          if (msg){ msg.className = "small text-danger"; msg.textContent = "Gagal membuat invoice. Coba lagi beberapa saat."; }
-        }
-      });
+      var wa = (window.CONFIG && CONFIG.SUPPORT_WA_E164) ? CONFIG.SUPPORT_WA_E164 : "6285156042869";
+      var h1 = document.getElementById('waHelp'); if (h1) h1.href = "https://wa.me/" + wa;
+      var h2 = document.getElementById('faqWA'); if (h2) h2.href = "https://wa.me/" + wa;
     })();
   </script>
 
-  <!-- Offer date helper -->
-  <script>
-    // Set teks bulan-tahun untuk "Update <bulan tahun>"
-    (function(){
-      const el = document.getElementById('offer-date');
-      if (!el) return;
-      const namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-      const d = new Date();
-      el.textContent = `${namaBulan[d.getMonth()]} ${d.getFullYear()}`;
-    })();
-  </script>
+  <!-- ===================================================================
+       END OF FILE
+       =================================================================== -->
 </body>
 </html>
