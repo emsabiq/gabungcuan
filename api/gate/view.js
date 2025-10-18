@@ -2,12 +2,13 @@ export const config = { runtime: 'edge' };
 
 export default async function handler(req) {
   try {
-    const BRIDGE_SECRET = process.env.BRIDGE_SECRET;
+    const BRIDGE_SECRET  = process.env.BRIDGE_SECRET;
     const ASSET_MAP_JSON = process.env.ASSET_MAP_JSON;
     if (!BRIDGE_SECRET || !ASSET_MAP_JSON) {
       return boom('missing_env', { BRIDGE_SECRET: !!BRIDGE_SECRET, ASSET_MAP_JSON: !!ASSET_MAP_JSON });
     }
 
+    // --- ambil cookie sesi ---
     const cookies = req.headers.get('cookie') || '';
     const sess = getCookie(cookies, '__sess');
     if (!sess) return text('No session', 401);
@@ -16,6 +17,7 @@ export default async function handler(req) {
     if (parts.length !== 5) return text('Bad session', 401);
     const [uaH, expStr, rnd, productId, sig] = parts;
 
+    // --- verifikasi signature & UA & expiry ---
     const payload = `${uaH}.${expStr}.${rnd}.${productId}`;
     const expect = await hmac(BRIDGE_SECRET, payload);
     if (sig !== expect) return text('Bad sig', 401);
@@ -25,20 +27,29 @@ export default async function handler(req) {
 
     if (Math.floor(Date.now()/1000) > Number(expStr)) return text('Session expired', 401);
 
+    // --- mapping produk ---
     let map={}; try { map = JSON.parse(ASSET_MAP_JSON); } catch { return boom('bad_asset_map'); }
     const origin = map[productId];
     if (!origin) return text('Unknown product', 404);
 
+    // --- fetch konten asli ---
     const up = await fetch(origin, { headers: { 'User-Agent': 'Vercel-Gate/1.0' } });
     if (!up.ok) return text('Origin fetch fail', 502);
 
-    const h = new Headers(up.headers);
+    // --- JANGAN copy semua headers upstream; whitelist saja yang aman ---
+    const h = new Headers();
+    // hanya content-type agar browser merender benar
+    const ct = up.headers.get('content-type') || 'application/octet-stream';
+    h.set('Content-Type', ct);
+    // kontrol cache & tampilan inline
     h.set('Cache-Control', 'no-store');
     h.set('Content-Disposition', 'inline; filename="content"');
+    // hapus session (single-use)
     h.append('Set-Cookie', '__sess=; Max-Age=0; HttpOnly; Secure; SameSite=Lax; Path=/');
 
-    return new Response(up.body, { status:200, headers:h });
+    return new Response(up.body, { status: 200, headers: h });
   } catch (e) {
+    // error lain → tampilkan jelas
     return boom('unhandled', { message: String(e?.message || e) });
   }
 }
