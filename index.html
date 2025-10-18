@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Produk Digital — Checkout</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body class="bg-body-tertiary">
+  <nav class="navbar navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="#"><i class="bi bi-bag-check me-2"></i>Produk Digital</a>
+      <span class="badge text-bg-dark">Checkout</span>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-6 fw-bold mb-3" id="productTitle">Produk Digital</h1>
+        <p class="text-secondary mb-4">Akses materi premium dengan update berkala.</p>
+
+        <ul class="list-unstyled small text-secondary mb-4">
+          <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Akses seumur hidup*</li>
+          <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Update materi tanpa biaya tambahan</li>
+          <li class="mb-2"><i class="bi bi-check2-circle me-2 text-success"></i>Dukungan via WhatsApp</li>
+        </ul>
+
+        <div class="price-banner d-inline-flex align-items-center gap-3 rounded-3 px-3 py-2 mb-4">
+          <span class="text-secondary">Harga</span>
+          <strong class="fs-4" id="priceLabel"></strong>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-4">
+            <form id="leadForm" class="row g-3">
+              <div class="col-12">
+                <label for="nama" class="form-label">Nama</label>
+                <input id="nama" class="form-control form-control-lg" placeholder="Nama lengkap" required>
+              </div>
+              <div class="col-12">
+                <label for="wa" class="form-label">No. WhatsApp (format 62...)</label>
+                <input id="wa" class="form-control form-control-lg" placeholder="62xxxxxxxxxx" pattern="^62[0-9]{8,15}$" required>
+                <div class="form-text">Gunakan awalan 62 (contoh: 62812xxxxxxx)</div>
+              </div>
+              <div class="col-12 d-grid">
+                <button type="submit" id="btnBayar" class="btn btn-dark btn-lg rounded-3">
+                  <span class="btn-label"><i class="bi bi-credit-card-2-front me-2"></i>Bayar Sekarang</span>
+                  <span class="btn-loading spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="col-12">
+                <div id="msg" class="small text-secondary"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <p class="mt-3 small text-secondary">Dengan melanjutkan, Anda setuju pada ketentuan layanan & kebijakan privasi.</p>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="preview shadow-sm rounded-4">
+          <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?q=80&w=1200&auto=format&fit=crop" alt="preview" class="w-100 rounded-4">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container py-4 text-center small text-secondary">
+    © <span id="year"></span> Produk Digital. All rights reserved.
+  </footer>
+
+  <script src="./assets/config.js"></script>
+  <script src="./assets/pixel.js" defer></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>

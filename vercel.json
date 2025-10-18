@@ -1,0 +1,8 @@
+{
+  "headers": [
+    {
+      "source": "/(success|access|reaccess).html",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
+  ]
+}
