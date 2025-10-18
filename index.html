@@ -6,17 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- SEO & OG -->
-  <meta name="description" content="1x akses, 10JT+ produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung bisa jual tanpa produksi sendiri.">
-  <meta property="og:title" content="Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual">
+  <meta name="description" content="1x akses, 8JT+ produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung bisa jual tanpa produksi sendiri. Harga spesial Rp99.000.">
+  <meta property="og:title" content="Gabung Dapat Cuan — 8JT+ Produk Digital Siap Jual">
   <meta property="og:description" content="Masterkit U-PLR, PLR & MRR. Rebrand bebas, katalog raksasa, update gratis. Ambil akses sekarang.">
   <meta property="og:type" content="website">
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-  <link href="assets/style.css" rel="stylesheet">
 
-  <!-- Gaya inti dari halaman lama (dipertahankan & dirapikan) -->
   <style>
     :root{
       --brand:#16a34a;       /* green-600 */
@@ -27,39 +25,96 @@
     html{ scroll-behavior:smooth; }
     body{ color:var(--ink); }
     .navbar{ backdrop-filter:saturate(140%) blur(6px); }
-    .brand-badge{ width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#059669,#16a34a);display:inline-block;position:relative;}
-    .brand-badge:after{ content:"\f02d"; font:900 16px "Font Awesome 6 Free"; color:#fff;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+    .brand-badge{
+      width:34px;height:34px;border-radius:9px;
+      background:linear-gradient(135deg,#059669,#16a34a);
+      display:inline-block;position:relative;
+    }
+    .brand-badge:after{
+      content:"\f02d"; /* fa-images */
+      font:900 16px "Font Awesome 6 Free";
+      color:#fff;position:absolute;left:50%;top:50%;
+      transform:translate(-50%,-50%);
+    }
     .hero{
       background:
         radial-gradient(1200px 480px at 20% -10%, #f0fdf4 0, rgba(240,253,244,0) 60%),
         radial-gradient(1000px 420px at 100% 0%, #ecfeff 0, rgba(236,254,255,0) 55%),
         #ffffff;
     }
-    .glass{ background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1px solid rgba(15,23,42,.06); border-radius:16px; box-shadow:0 20px 40px rgba(2,6,23,.08);}
-    .check-pill{ background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;padding:.35rem .75rem;font-size:.85rem }
-    .icon-circle{ width:42px;height:42px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand);}
+    .glass{
+      background:rgba(255,255,255,.7);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(15,23,42,.06);
+      border-radius:16px;
+      box-shadow:0 20px 40px rgba(2,6,23,.08);
+    }
+    .check-pill{
+      background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;
+      padding:.35rem .75rem;font-size:.85rem
+    }
+    .icon-circle{
+      width:42px;height:42px;border-radius:999px;
+      display:inline-flex;align-items:center;justify-content:center;
+      background:var(--brand-soft);color:var(--brand);
+    }
     .feature .icon-circle{ width:36px;height:36px; }
     .muted{ color:var(--muted)!important; }
     .section-title{ font-weight:800; letter-spacing:-.02em; }
-    .price-tag{ display:inline-flex;align-items:center;gap:.5rem;background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;padding:.4rem .8rem;font-weight:600;color:#1f2937;}
+    .price-tag{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;
+      padding:.4rem .8rem;font-weight:600;color:#1f2937;
+    }
     .shadow-soft{ box-shadow:0 10px 30px rgba(2,6,23,.06); }
 
-    .count-box{ display:flex;gap:.75rem;flex-wrap:wrap; }
-    .time{ min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;background:#fff;border:1px solid #e5e7eb; }
+    /* Countdown */
+    .count-box{
+      display:flex;gap:.75rem;flex-wrap:wrap;
+    }
+    .time{
+      min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;
+      background:#fff;border:1px solid #e5e7eb;
+    }
     .time .num{ font-size:1.5rem;font-weight:800;color:#111827; }
     .time .lab{ font-size:.75rem;color:#6b7280; }
 
-    .floating-cta{ position:fixed;left:0;right:0;bottom:-100px;background:#111827;color:#fff;z-index:9999;transition:bottom .35s ease;padding:.75rem 1rem; }
+    /* Floating CTA (mobile) */
+    .floating-cta{
+      position:fixed;left:0;right:0;bottom:-100px;
+      background:#111827;color:#fff;z-index:9999;
+      transition:bottom .35s ease;padding:.75rem 1rem;
+    }
     .floating-cta.show{ bottom:0; }
     .floating-cta .btn{ white-space:nowrap; }
-    .badge-soft{ background:var(--brand-soft);color:var(--brand);border:1px solid #bbf7d0; }
-    .bg-stripe{ background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06)); }
-    .ratio-thumb{ border:1px solid #e5e7eb;border-radius:12px;overflow:hidden; }
+    .badge-soft{
+      background:var(--brand-soft);color:var(--brand);border:1px solid #bbf7d0;
+    }
+    .bg-stripe{
+      background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06));
+    }
+    .ratio-thumb{
+      border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;
+    }
     .smallcaps{font-variant:all-small-caps;letter-spacing:.06em}
   </style>
 
-  <!-- Meta Pixel loader (dipindah ke assets/pixel.js) -->
-  <script src="assets/pixel.js" defer></script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1328311132182013'); /* <-- ganti jika perlu */
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1328311132182013&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -83,11 +138,13 @@
 
         <div class="d-flex align-items-center gap-2 flex-column flex-lg-row mt-3 mt-lg-0">
           <a class="btn btn-outline-secondary w-100 w-lg-auto" href="#testi">
-            <i class="fa-solid fa-star me-1"></i> Testimoni
+            <i class="fa-solid fa-star me-1"></i>
+            Testimoni
           </a>
-          <!-- Tombol Login tetap, opsional -->
-          <a class="btn btn-success w-100 w-lg-auto" href="./login.html">
-            <i class="fa-solid fa-bolt me-1"></i> Login
+          <!-- Login dihapus -->
+          <a class="btn btn-success w-100 w-lg-auto" href="#checkout">
+            <i class="fa-solid fa-bolt me-1"></i>
+            Dapatkan Akses
           </a>
         </div>
       </div>
@@ -109,25 +166,23 @@
             Tanpa produksi sendiri. Tinggal rebrand, posting, dan jual. Katalog besar, niche luas, eksekusi lebih cepat.
           </p>
 
-          <div>
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">U-PLR</span>
-              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">PLR</span>
-              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">MRR</span>
-            </div>
-            <p class="text-muted small mb-4">Aset legal terkurasi untuk dijual ulang sesuai lisensi.</p>
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">U-PLR</span>
+            <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">PLR</span>
+            <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">MRR</span>
           </div>
+          <p class="text-muted small mb-4">Aset legal terkurasi untuk dijual ulang sesuai lisensi.</p>
 
-          <!-- KOTAK HARGA + ANCHOR CHECKOUT -->
+          <!-- PRICE & DEADLINE -->
           <div class="glass p-3 p-md-4 mb-4 shadow-soft" id="checkout">
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-              <div class="price-tag shadow-sm rounded-pill p-2" style="background-color:#ecfdf5;border:1px solid #bbf7d0;flex-grow:1;">
+              <div class="price-tag shadow-sm rounded-pill d-flex align-items-center justify-content-between p-2" style="background-color: #ecfdf5; border: 1px solid #bbf7d0; flex-grow: 1;">
                 <div class="px-3">
-                  <span class="d-block text-muted" style="font-size:.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
-                  <span class="d-block text-muted" style="font-size:.8rem;">Harga Normal: <s>Rp 800.000</s></span>
+                  <span class="d-block text-muted" style="font-size: 0.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
+                  <span class="d-block text-muted" style="font-size: 0.8rem;">Harga Normal: <s>Rp 800.000</s></span>
                 </div>
                 <div class="bg-success text-white rounded-pill px-4 py-2">
-                  <strong class="fs-5" id="priceLabel">Rp 0</strong>
+                  <strong class="fs-5" id="priceBadge">Rp 99.000</strong>
                 </div>
               </div>
               <div class="small text-muted text-nowrap">
@@ -136,19 +191,19 @@
             </div>
           </div>
 
-          <!-- FORM CHECKOUT (disesuaikan ke flow baru) -->
+          <!-- FORM CHECKOUT (flow baru) -->
           <form id="leadForm" class="row g-3 needs-validation" novalidate>
             <div class="col-md-5">
               <label class="form-label mb-1">Nama</label>
               <input class="form-control" id="nama" placeholder="Nama Anda" required>
               <div class="invalid-feedback">Nama wajib diisi.</div>
             </div>
-            <div class="col-md-4">
-              <label class="form-label mb-1">No. WhatsApp <small class="text-muted">(62…)</small></label>
+            <div class="col-md-7">
+              <label class="form-label mb-1">No. WhatsApp <small class="text-muted">(format 62…)</small></label>
               <input class="form-control" id="wa" placeholder="62xxxxxxxxxx" pattern="^62[0-9]{8,15}$" required>
               <div class="invalid-feedback">Gunakan format 62 diikuti angka (contoh: 62812xxxxxxx).</div>
             </div>
-            <div class="col-md-7">
+            <div class="col-12">
               <label class="form-label mb-1">Email <small class="text-muted">(untuk kirim akses)</small></label>
               <input class="form-control" id="email" type="email" placeholder="emailkamu@email.com" required>
               <div class="invalid-feedback">Isi email yang valid.</div>
@@ -162,7 +217,7 @@
             <div class="col-12"><div id="msg" class="small text-muted"></div></div>
           </form>
 
-          <!-- COUNTDOWN -->
+          <!-- Countdown -->
           <div class="alert alert-warning text-center mt-4" role="alert">
             <div class="small text-uppercase fw-bold mb-2">
               <i class="fa-solid fa-fire-flame-curved"></i> Penawaran Terbatas Berakhir Dalam
@@ -173,7 +228,7 @@
               <div class="time shadow-sm"><div class="num text-danger" id="s">54</div><div class="lab">Detik</div></div>
             </div>
             <div class="small mt-3 fw-bold text-danger">
-              <i class="fa-solid fa-triangle-exclamation me-1"></i> Harga spesial hanya sampai pukul 23:59!
+              <i class="fa-solid fa-triangle-exclamation me-1"></i> Harga Rp99.000 hanya sampai pukul 23:59 hari ini!
             </div>
           </div>
 
@@ -187,8 +242,14 @@
           <div class="glass p-3 p-md-4">
             <div class="row g-3">
               <div class="col-12">
-                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10JT+ Aset Digital">
+                <!-- Ganti src sesuai file kamu -->
+                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10 Jt+ Asset Digital">
               </div>
+            </div>
+            <div class="mt-3 small text-muted">
+              Pembayaran diproses aman oleh
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Xendit_Logo.png" width="72" alt="Xendit" class="ms-1 align-text-top">
+              .
             </div>
           </div><!-- /glass -->
         </div>
@@ -196,14 +257,316 @@
     </div>
   </section>
 
-  <!-- (SECTIONS LAIN DIPERTAHANKAN DARI HALAMAN LAMA) -->
-  <!-- PAIN / PROBLEM, BENEFIT, WHAT YOU GET, PRICING, TESTI, FAQ, FOOTER, Floating CTA -->
-  <!-- >>> kamu bisa copy blok yang sama dari versi lama bila ingin 100% sama visualnya <<< -->
+  <!-- PAIN / PROBLEM -->
+  <section id="pain" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Mau mulai jualan digital, tapi realitanya gini? 🤔</h2>
+      <div class="row g-3 g-md-4">
+        <div class="col-md-6">
+          <ul class="list-unstyled muted">
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Bingung mau mulai dari mana. Waktu jalan, bisnis nggak jalan.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Bikin produk sendiri makan waktu berbulan-bulan—ujungnya nggak siap dijual.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Produk buat dijual terlalu sedikit. Susah testing niche, akhirnya stuck.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Desain & promosi makan energi. Belum sempat jualan, sudah capek teknis.</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-unstyled muted">
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Was-was lisensi. Takut salah pakai, takut kena takedown.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Modal habis untuk tools & kursus, hasil tak kembali, makin boncos.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Sementara kompetitor sudah testing tiap hari, katalog menumpuk, orderan masuk.</li>
+            <li class="mb-2"><i class="fa-regular fa-circle-xmark me-2 text-danger"></i>Kamu masih di fase: “nanti aja deh mulai…”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert alert-success mt-3"><strong>Ini dia solusi praktisnya:</strong> 10JT+ Digital Licence Masterkit — tinggal rebrand, posting, dan langsung bisa jual. Ditambah Video Tutorial Mahir FB/IG Ads</div>
+    </div>
+  </section>
+
+  <!-- BENEFIT -->
+  <section id="fitur" class="py-5 bg-stripe">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Kenapa Masterkit Ini Berharga?</h2>
+      <div class="row g-3 g-md-4">
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="fw-semibold mb-1">Katalog Raksasa</div>
+            <div class="muted small">Ribuan niche bisa langsung dites. Kamu bergerak cepat, cari win cepat.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-brush"></i></div>
+            <div class="fw-semibold mb-1">Rebrand Bebas</div>
+            <div class="muted small">Ganti nama, gaya, bundling—jual lebih mahal dengan positioning yang kamu mau.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-infinity"></i></div>
+            <div class="fw-semibold mb-1">Modal Sekali, Dipakai Selamanya</div>
+            <div class="muted small">Satu kali akses, asetmu tak habis dipakai. Repeat & scale lebih mudah.</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-shield-heart"></i></div>
+            <div class="fw-semibold mb-1">Lisensi Resmi</div>
+            <div class="muted small">Jualan aman sesuai aturan PLR/MRR. Panduan & batasan dipaparkan jelas.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-rocket"></i></div>
+            <div class="fw-semibold mb-1">Produk Laris Siap Jual</div>
+            <div class="muted small">Tanpa bikin dari nol. Tinggal kemas, pasang, dan mulai testing.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature p-3 border rounded-4 h-100 bg-white">
+            <div class="icon-circle mb-2"><i class="fa-solid fa-rotate"></i></div>
+            <div class="fw-semibold mb-1">Free Update</div>
+            <div class="muted small">Update berkala tanpa biaya tambahan. Kamu selalu punya stok baru.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section id="isi" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-4">Apa Saja yang Kamu Dapatkan?</h2>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-solid fa-database"></i></span>
+              <div>
+                <div class="fw-semibold">1) 1.10 Juta+ Produk Digital (PLR/MRR)</div>
+                <small class="muted">E-book, template, software, kursus, grafis, audio, video, dan ribuan aset siap jual.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 bg-white">
+              <img src="assets/kisi-kisi-produk.jpg" class="object-fit-contain" alt="Kisi-kisi Produk" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-solid fa-gem"></i></span>
+              <div>
+                <div class="fw-semibold">2) 450+ Produk Digital Spesial Edition</div>
+                <small class="muted">Edisi eksklusif & bernilai tinggi—siap jadi unggulan katalogmu.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 ratio-thumb bg-white">
+              <img src="assets/spesial-edition.jpg" class="w-100 h-100 object-fit-cover" alt="Spesial Edition" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-solid fa-fire"></i></span>
+              <div>
+                <div class="fw-semibold">3) 500+ Produk Digital Laris (Lokal)</div>
+                <small class="muted">Karya anak bangsa. Siap pakai & siap jual untuk pasar Indonesia.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 ratio-thumb bg-white">
+              <img src="assets/laris-lokal.jpg" class="object-fit-contain" alt="Produk Laris Lokal" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-solid fa-briefcase"></i></span>
+              <div>
+                <div class="fw-semibold">4) Premium Marketing Kit</div>
+                <small class="muted">Branding, promosi, & materi penjualan level profesional. Hemat waktu, tetap terlihat rapi.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 ratio-thumb bg-white">
+              <img src="assets/1755760411026-Desain-tanpa-judul-10.jpg" class="object-fit-contain" alt="Marketing Kit" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-brands fa-square-instagram"></i></span>
+              <div>
+                <div class="fw-semibold">5) Panduan FB & IG Ads</div>
+                <small class="muted">Langkah demi langkah bikin iklan efektif yang segera mendatangkan hasil.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 ratio-thumb bg-white">
+              <img src="assets/panduan-ads.jpg" class="w-100 h-100 object-fit-cover" alt="Panduan Ads" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="icon-circle"><i class="fa-solid fa-rotate"></i></span>
+              <div>
+                <div class="fw-semibold">6) Free Update Produk</div>
+                <small class="muted">Tambah produk baru = bertambah kesempatan jual. Update otomatis tanpa biaya.</small>
+              </div>
+            </div>
+            <div class="ratio ratio-16x9 ratio-thumb bg-white">
+              <img src="assets/update-rutin.jpg" class="object-fit-contain" alt="Update Produk" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-success mt-4">
+        <strong>Artinya:</strong> kamu bisa fokus jualan digital—tanpa repot produksi, desain, atau bikin produk dari nol. <a href="#checkout" class="alert-link">Ambil akses sekarang</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="harga" class="py-5">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Penawaran Spesial ✨ (Update <span id="offer-date"></span>)</h2>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="p-4 border rounded-4 h-100">
+            <div class="card shadow-sm border-warning">
+              <div class="card-body text-center p-4">
+                <div class="text-muted mb-2">
+                  <span>Nilai Bundle <s>Rp 3.699.000</s></span>
+                  <span class="mx-2">|</span>
+                  <span>Harga Normal <s>Rp 800.000</s></span>
+                </div>
+                <div class="display-4 fw-bolder text-success" id="priceMain">Rp 99.000</div>
+                <div class="small text-uppercase fw-bold mb-3">Hanya Untuk Hari Ini</div>
+                <hr>
+                <div class="small text-uppercase fw-bold mb-2">Penawaran Berakhir Dalam:</div>
+                <div class="count-box justify-content-center mb-3">
+                  <div class="time shadow-sm"><div class="num text-danger" id="h2">09</div><div class="lab">Jam</div></div>
+                  <div class="time shadow-sm"><div class="num text-danger" id="m2">44</div><div class="lab">Menit</div></div>
+                  <div class="time shadow-sm"><div class="num text-danger" id="s2">54</div><div class="lab">Detik</div></div>
+                </div>
+                <p class="small fw-bold text-danger mb-0">
+                  <i class="fa-solid fa-triangle-exclamation me-1"></i> Jangan lewatkan! Harga akan kembali normal setelah waktu habis.
+                </p>
+              </div>
+            </div>
+
+            <hr class="my-3">
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <h6 class="fw-bold">Dengan 1x bayar, kamu langsung dapat:</h6>
+                <ul class="small muted">
+                  <li>Produk digital premium siap jual ulang</li>
+                  <li>Lisensi rebranding dengan brand sendiri</li>
+                  <li>Update rutin GRATIS</li>
+                  <li>Panduan mulai cepat (onboarding)</li>
+                  <li>Akses seumur hidup</li>
+                </ul>
+              </div>
+              <div class="col-md-6 d-grid gap-2">
+                <a class="btn btn-success btn-lg" href="#checkout">
+                  <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses Sekarang — <span id="priceCta">Rp 99.000</span>
+                </a>
+                <a class="btn btn-outline-success" href="#testi"><i class="fa-solid fa-star me-1"></i> Lihat Testimoni</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 border rounded-4 h-100">
+            <h6 class="fw-bold mb-2">Bayangkan… 💡</h6>
+            <p class="small muted mb-2">
+              Cukup modal terjangkau, kamu pegang paket lengkap untuk buka peluang bisnis digital bernilai besar.
+            </p>
+            <p class="small muted mb-0">
+              <strong>Potensi besar</strong>—dari jutaan hingga ratusan juta rupiah—tergantung eksekusi, produk yang dipilih, dan pasar. <em>Hasil tiap orang bisa berbeda.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTI (placeholder) -->
+  <section id="testi" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title h3 mb-3">Testimoni dari yang sudah mencoba</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/sarah/40/40" class="rounded-circle" width="40" height="40" alt="Sarah">
+              <div>
+                <div class="fw-semibold">Sarah • Marketing UKM</div>
+                <small class="muted">Surabaya</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Gila, ini paket terlengkap yang pernah saya beli. Dari e-book, template, sampai marketing kit, semua ada. Nggak perlu pusing mikirin produksi, tinggal fokus jualan. Sebulan pertama langsung balik modal berkali-kali lipat!”</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/budi/40/40" class="rounded-circle" width="40" height="40" alt="Budi">
+              <div>
+                <div class="fw-semibold">Budi • Agency Owner</div>
+                <small class="muted">Yogyakarta</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Awalnya skeptis, tapi setelah dijalani, hasilnya luar biasa. Sekarang omzet stabil di angka 200jt/bulan. Kuncinya karena marketnya masih luas dan belum banyak yang tahu cara manfaatin aset PLR begini. Peluangnya emas banget.”</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded-4 h-100 bg-white d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <img src="https://picsum.photos/seed/fitri/40/40" class="rounded-circle" width="40" height="40" alt="Fitri">
+              <div>
+                <div class="fw-semibold">Fitri • Side Hustle</div>
+                <small class="muted">Bekasi</small>
+              </div>
+            </div>
+            <div class="small mt-auto">“Alhamdulillah, impian saya bawa orang tua Umroh dan ajak keluarga liburan akhirnya terwujud dari hasil jualan produk digital ini. Nggak pernah nyangka bisnis yang modalnya cuma segini bisa ngasih dampak sebesar ini ke hidup saya. Benar-benar mengubah segalanya.”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-top py-4">
+    <div class="container small d-flex flex-wrap gap-2 align-items-center justify-content-between">
+      <div>© <span id="y"></span> Aset Digital Cuan</div>
+      <div class="d-flex align-items-center gap-3">
+        <a class="text-decoration-none muted" href="#harga"><i class="fa-solid fa-list-ul me-1"></i> Harga</a>
+        <a class="btn btn-success btn-sm" href="#checkout">
+          <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses
+        </a>
+      </div>
+    </div>
+  </footer>
 
   <!-- Floating CTA -->
   <div class="floating-cta" id="floater" aria-hidden="true">
     <div class="container d-flex align-items-center justify-content-between gap-2">
-      <div class="small">Harga spesial <strong id="priceLabel2">Rp 0</strong> berakhir <strong>23:59</strong>—amankan aksesmu sekarang.</div>
+      <div class="small">Harga spesial <strong id="priceFloat">Rp99.000</strong> berakhir <strong>23:59</strong>—amankan aksesmu sekarang.</div>
       <a href="#checkout" class="btn btn-success btn-sm"><i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses</a>
     </div>
   </div>
@@ -211,39 +574,153 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Konfigurasi & Integrasi Pembayaran -->
-  <script src="assets/config.js"></script>
-  <script src="assets/app.js"></script>
-
-  <!-- Util kecil: jam, countdown, floater -->
+  <!-- ===================== CONFIG (EDIT JIKA PERLU) ===================== -->
   <script>
-    // Countdown ke 23:59 (Asia/Jakarta)
-    function getTonightDeadline(){
-      const now = new Date();
-      const deadline = new Date(now);
-      deadline.setHours(23,59,59,999);
-      if (deadline - now <= 0){ deadline.setDate(deadline.getDate()+1); deadline.setHours(23,59,59,999); }
-      return deadline;
-    }
-    const end = getTonightDeadline();
-    const h = document.getElementById('h'), m = document.getElementById('m'), s = document.getElementById('s');
-    function pad(n){ return n<10 ? '0'+n : ''+n; }
-    function tick(){
-      const now = new Date();
-      let diff = Math.max(0, end - now);
-      const hh = Math.floor(diff/1000/60/60); diff -= hh*60*60*1000;
-      const mm = Math.floor(diff/1000/60);    diff -= mm*60*1000;
-      const ss = Math.floor(diff/1000);
-      if (h) h.textContent = pad(hh); if (m) m.textContent = pad(mm); if (s) s.textContent = pad(ss);
-    }
-    setInterval(tick,1000); tick();
+    const CONFIG = {
+      APP_ORIGIN: "https://gabungcuan.vercel.app",
+      API_BASE:   "https://gdc.msabiq-stan.workers.dev",
+      SUPPORT_WA_E164: "6285156042869",
+      PRODUCT_DEFAULT: {
+        id: "product-masterkit",
+        name: "Akses Digital Licence Masterkit U PLR MRR",
+        price: 99000,
+        currency: "IDR",
+        description: "Akses materi premium + bonus dikirim lewat email setelah pembayaran."
+      }
+    };
+  </script>
 
-    // Floating CTA on scroll
-    const floater = document.getElementById('floater'); let shown=false;
-    window.addEventListener('scroll', ()=>{
-      if (window.scrollY > 480 && !shown){ floater.classList.add('show'); floater.setAttribute('aria-hidden','false'); shown = true; }
-      if (window.scrollY <= 120 && shown){ floater.classList.remove('show'); floater.setAttribute('aria-hidden','true'); shown = false; }
-    });
+  <!-- ===================== APP (Create Invoice + UX) ===================== -->
+  <script>
+    (function(){
+      const fmtIDR = v => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR'}).format(v);
+      const price = Number(CONFIG.PRODUCT_DEFAULT.price || 0) || 0;
+
+      // Set harga di beberapa tempat
+      const $ = sel => document.querySelector(sel);
+      const setTxt = (sel, val) => { const el = $(sel); if (el) el.textContent = val; };
+
+      setTxt('#priceBadge', fmtIDR(price));
+      setTxt('#priceMain', fmtIDR(price));
+      setTxt('#priceCta',  fmtIDR(price));
+      setTxt('#priceFloat', fmtIDR(price));
+
+      // Tahun footer
+      const y = $('#y'); if (y) y.textContent = new Date().getFullYear();
+
+      // Offer date (Bulan Tahun)
+      const namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      const now = new Date(); const offerDate = `${namaBulan[now.getMonth()]} ${now.getFullYear()}`;
+      setTxt('#offer-date', offerDate);
+
+      // Countdown ke 23:59 hari ini
+      function tonight() {
+        const d = new Date(); const t = new Date(d);
+        t.setHours(23,59,59,999);
+        if (t - d <= 0){ t.setDate(t.getDate()+1); t.setHours(23,59,59,999); }
+        return t;
+      }
+      const end = tonight();
+      const ids = ['#h','#m','#s','#h2','#m2','#s2'].map(id => $(id));
+      function pad(n){ return n<10 ? '0'+n : ''+n; }
+      function tick(){
+        const n = new Date(); let diff = Math.max(0, end - n);
+        const hh = Math.floor(diff/1000/60/60); diff -= hh*60*60*1000;
+        const mm = Math.floor(diff/1000/60);    diff -= mm*60*1000;
+        const ss = Math.floor(diff/1000);
+        const vals = [pad(hh), pad(mm), pad(ss)];
+        // isi di dua blok countdown sekaligus jika elemen ada
+        if (ids[0]) ids[0].textContent = vals[0];
+        if (ids[1]) ids[1].textContent = vals[1];
+        if (ids[2]) ids[2].textContent = vals[2];
+        if (ids[3]) ids[3].textContent = vals[0];
+        if (ids[4]) ids[4].textContent = vals[1];
+        if (ids[5]) ids[5].textContent = vals[2];
+      }
+      tick(); setInterval(tick, 1000);
+
+      // Floating CTA on scroll
+      const floater = $('#floater'); let shown=false;
+      window.addEventListener('scroll', ()=>{
+        if (window.scrollY > 480 && !shown){ floater.classList.add('show'); floater.setAttribute('aria-hidden','false'); shown = true; }
+        if (window.scrollY <= 120 && shown){ floater.classList.remove('show'); floater.setAttribute('aria-hidden','true'); shown = false; }
+      });
+
+      // Form submit → create invoice → redirect
+      const form = $('#leadForm');
+      if (!form) return;
+
+      form.addEventListener('submit', async (ev)=>{
+        ev.preventDefault();
+        const btn = $('#btnBayar') || form.querySelector('button[type="submit"]');
+        const msg = $('#msg');
+
+        const nama  = $('#nama').value.trim();
+        const wa    = $('#wa').value.trim();
+        const email = $('#email').value.trim();
+
+        const waOK   = /^62[0-9]{8,15}$/.test(wa);
+        const mailOK = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (!nama || !waOK || !mailOK) {
+          form.classList.add('was-validated');
+          if (msg){ msg.className = "small text-danger"; msg.textContent = "Cek kembali inputan kamu."; }
+          return;
+        }
+
+        // Pixel: AddToCart pada klik bayar
+        try { if (window.fbq) fbq('track', 'AddToCart', {content_name: CONFIG.PRODUCT_DEFAULT.name, value: price, currency: 'IDR'}); } catch(_){}
+
+        if (btn) btn.disabled = true;
+        if (msg){ msg.className = "small text-muted"; msg.textContent = "Membuat invoice…"; }
+
+        // simpan harga utk Purchase di success page (jaga-jaga)
+        try { localStorage.setItem('lastPrice', String(price)); } catch(_){}
+
+        // panggil Worker → GAS createInvoice
+        try {
+          const res = await fetch(`${CONFIG.API_BASE}/api/create-invoice`, {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            body: JSON.stringify({
+              productId:   CONFIG.PRODUCT_DEFAULT.id,
+              productName: CONFIG.PRODUCT_DEFAULT.name,
+              amount:      price,
+              currency:    CONFIG.PRODUCT_DEFAULT.currency || 'IDR',
+              baseUrl:     CONFIG.APP_ORIGIN,
+              customer: { name: nama, wa, email }
+            })
+          });
+          const j = await res.json();
+
+          if (!res.ok || !j.ok || !j.invoice_url) {
+            throw new Error(j && j.error ? j.error : 'create_failed');
+          }
+
+          // Pixel: InitiateCheckout
+          try { if (window.fbq) fbq('track', 'InitiateCheckout', {value: price, currency:'IDR'}); } catch(_){}
+
+          // redirect ke invoice Xendit
+          location.assign(j.invoice_url);
+        } catch (e) {
+          console.error(e);
+          if (btn) btn.disabled = false;
+          if (msg){ msg.className = "small text-danger"; msg.textContent = "Gagal membuat invoice. Coba lagi beberapa saat."; }
+        }
+      });
+    })();
+  </script>
+
+  <!-- Offer date helper -->
+  <script>
+    // Set teks bulan-tahun untuk "Update <bulan tahun>"
+    (function(){
+      const el = document.getElementById('offer-date');
+      if (!el) return;
+      const namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      const d = new Date();
+      el.textContent = `${namaBulan[d.getMonth()]} ${d.getFullYear()}`;
+    })();
   </script>
 </body>
 </html>
