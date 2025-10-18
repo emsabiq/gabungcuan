@@ -1,92 +1,249 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Produk Digital — Checkout</title>
+  <meta charset="utf-8">
+  <title>Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual (PLR/MRR)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap 5 -->
+  <!-- SEO & OG -->
+  <meta name="description" content="1x akses, 10JT+ produk digital siap jual ulang (PLR/MRR). Rebrand, posting, langsung bisa jual tanpa produksi sendiri.">
+  <meta property="og:title" content="Gabung Dapat Cuan — 10JT+ Produk Digital Siap Jual">
+  <meta property="og:description" content="Masterkit U-PLR, PLR & MRR. Rebrand bebas, katalog raksasa, update gratis. Ambil akses sekarang.">
+  <meta property="og:type" content="website">
+
+  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
 
-  <!-- Meta Pixel -->
+  <!-- Gaya inti dari halaman lama (dipertahankan & dirapikan) -->
+  <style>
+    :root{
+      --brand:#16a34a;       /* green-600 */
+      --brand-soft:#ecfdf5;  /* green-50 */
+      --ink:#0f172a;
+      --muted:#6b7280;
+    }
+    html{ scroll-behavior:smooth; }
+    body{ color:var(--ink); }
+    .navbar{ backdrop-filter:saturate(140%) blur(6px); }
+    .brand-badge{ width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#059669,#16a34a);display:inline-block;position:relative;}
+    .brand-badge:after{ content:"\f02d"; font:900 16px "Font Awesome 6 Free"; color:#fff;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+    .hero{
+      background:
+        radial-gradient(1200px 480px at 20% -10%, #f0fdf4 0, rgba(240,253,244,0) 60%),
+        radial-gradient(1000px 420px at 100% 0%, #ecfeff 0, rgba(236,254,255,0) 55%),
+        #ffffff;
+    }
+    .glass{ background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1px solid rgba(15,23,42,.06); border-radius:16px; box-shadow:0 20px 40px rgba(2,6,23,.08);}
+    .check-pill{ background:#f8fafc;border:1px dashed #e2e8f0;border-radius:999px;padding:.35rem .75rem;font-size:.85rem }
+    .icon-circle{ width:42px;height:42px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand);}
+    .feature .icon-circle{ width:36px;height:36px; }
+    .muted{ color:var(--muted)!important; }
+    .section-title{ font-weight:800; letter-spacing:-.02em; }
+    .price-tag{ display:inline-flex;align-items:center;gap:.5rem;background:#eefcf3;border:1px solid #e5e7eb;border-radius:999px;padding:.4rem .8rem;font-weight:600;color:#1f2937;}
+    .shadow-soft{ box-shadow:0 10px 30px rgba(2,6,23,.06); }
+
+    .count-box{ display:flex;gap:.75rem;flex-wrap:wrap; }
+    .time{ min-width:72px;text-align:center;padding:.5rem .65rem;border-radius:.75rem;background:#fff;border:1px solid #e5e7eb; }
+    .time .num{ font-size:1.5rem;font-weight:800;color:#111827; }
+    .time .lab{ font-size:.75rem;color:#6b7280; }
+
+    .floating-cta{ position:fixed;left:0;right:0;bottom:-100px;background:#111827;color:#fff;z-index:9999;transition:bottom .35s ease;padding:.75rem 1rem; }
+    .floating-cta.show{ bottom:0; }
+    .floating-cta .btn{ white-space:nowrap; }
+    .badge-soft{ background:var(--brand-soft);color:var(--brand);border:1px solid #bbf7d0; }
+    .bg-stripe{ background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(59,130,246,.06)); }
+    .ratio-thumb{ border:1px solid #e5e7eb;border-radius:12px;overflow:hidden; }
+    .smallcaps{font-variant:all-small-caps;letter-spacing:.06em}
+  </style>
+
+  <!-- Meta Pixel loader (dipindah ke assets/pixel.js) -->
   <script src="assets/pixel.js" defer></script>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-white border-bottom">
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#">gabungcuan</a>
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <span class="brand-badge"></span>
+        <span class="fw-bold">10JT+ Aset Digital</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
+          <li class="nav-item"><a class="nav-link" href="#isi">Isi Paket</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2 flex-column flex-lg-row mt-3 mt-lg-0">
+          <a class="btn btn-outline-secondary w-100 w-lg-auto" href="#testi">
+            <i class="fa-solid fa-star me-1"></i> Testimoni
+          </a>
+          <!-- Tombol Login tetap, opsional -->
+          <a class="btn btn-success w-100 w-lg-auto" href="./login.html">
+            <i class="fa-solid fa-bolt me-1"></i> Login
+          </a>
+        </div>
+      </div>
     </div>
   </nav>
 
-  <main class="container py-4">
-    <div class="row g-4">
-      <div class="col-lg-7">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h1 class="h3 mb-2" id="prodTitle">Produk Digital</h1>
-            <p class="text-muted mb-3" id="prodDesc">Akses materi premium, update berkala.</p>
-            <ul class="small text-muted">
-              <li>Akses dikirim via email setelah pembayaran berhasil.</li>
-              <li>Jika email tidak masuk, cek folder Spam/Promotions atau hubungi WhatsApp bantuan.</li>
-            </ul>
+  <!-- HERO -->
+  <section class="hero py-6">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="check-pill"><i class="fa-solid fa-database me-1 text-success"></i> 1x Akses = <strong>10JT+</strong> Produk Digital Siap Jual</span>
+            <span class="check-pill d-none d-md-inline"><i class="fa-solid fa-shield-check me-1 text-primary"></i> Hak <strong>PLR/MRR</strong> — Lisensi Jual Kembali</span>
           </div>
-        </div>
-      </div>
 
-      <div class="col-lg-5">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h2 class="h5">Checkout</h2>
-            <div class="d-flex align-items-baseline justify-content-between mb-3">
-              <div>Harga</div>
-              <div class="h4 mb-0" id="priceLabel">Rp 0</div>
+          <h1 class="display-5 fw-bold mb-2">Gabung Dapat <span class="text-success">Cuan</span></h1>
+          <p class="lead text-muted mb-2">
+            Tanpa produksi sendiri. Tinggal rebrand, posting, dan jual. Katalog besar, niche luas, eksekusi lebih cepat.
+          </p>
+
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">U-PLR</span>
+              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">PLR</span>
+              <span class="badge bg-success bg-opacity-10 text-success-emphasis border border-success-subtle fw-semibold smallcaps">MRR</span>
             </div>
+            <p class="text-muted small mb-4">Aset legal terkurasi untuk dijual ulang sesuai lisensi.</p>
+          </div>
 
-            <form id="leadForm" novalidate>
-              <div class="mb-3">
-                <label class="form-label">Nama</label>
-                <input id="nama" class="form-control" required>
-                <div class="invalid-feedback">Nama wajib diisi.</div>
+          <!-- KOTAK HARGA + ANCHOR CHECKOUT -->
+          <div class="glass p-3 p-md-4 mb-4 shadow-soft" id="checkout">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+              <div class="price-tag shadow-sm rounded-pill p-2" style="background-color:#ecfdf5;border:1px solid #bbf7d0;flex-grow:1;">
+                <div class="px-3">
+                  <span class="d-block text-muted" style="font-size:.8rem;">Nilai Bundle: <s>Rp 3.699.000</s></span>
+                  <span class="d-block text-muted" style="font-size:.8rem;">Harga Normal: <s>Rp 800.000</s></span>
+                </div>
+                <div class="bg-success text-white rounded-pill px-4 py-2">
+                  <strong class="fs-5" id="priceLabel">Rp 0</strong>
+                </div>
               </div>
-
-              <div class="mb-3">
-                <label class="form-label">No. WhatsApp <small class="text-muted">(format 62…)</small></label>
-                <input id="wa" class="form-control" required pattern="^62[0-9]{8,15}$" placeholder="62xxxxxxxxxx">
-                <div class="invalid-feedback">Gunakan format 62 diikuti angka (contoh: 62812xxxxxxx).</div>
+              <div class="small text-muted text-nowrap">
+                <i class="fa-regular fa-clock me-1 text-success"></i> Berakhir 23:59
               </div>
-
-              <div class="mb-3">
-                <label class="form-label">Email <small class="text-muted">(wajib untuk kirim akses)</small></label>
-                <input id="email" type="email" class="form-control" required>
-                <div class="invalid-feedback">Isi email yang valid.</div>
-              </div>
-
-              <button type="submit" id="btnBayar" class="btn btn-dark w-100">Bayar Sekarang</button>
-              <div class="form-text mt-2">
-                Dengan menekan tombol di atas, Anda setuju menerima akses produk via email.
-              </div>
-
-              <div id="msg" class="small mt-3 text-muted"></div>
-            </form>
-
-            <hr class="my-4">
-            <div class="d-flex align-items-center gap-2">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Xendit_Logo.png" width="72" alt="Xendit">
-              <span class="small text-muted">Pembayaran diproses aman oleh Xendit.</span>
             </div>
           </div>
+
+          <!-- FORM CHECKOUT (disesuaikan ke flow baru) -->
+          <form id="leadForm" class="row g-3 needs-validation" novalidate>
+            <div class="col-md-5">
+              <label class="form-label mb-1">Nama</label>
+              <input class="form-control" id="nama" placeholder="Nama Anda" required>
+              <div class="invalid-feedback">Nama wajib diisi.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label mb-1">No. WhatsApp <small class="text-muted">(62…)</small></label>
+              <input class="form-control" id="wa" placeholder="62xxxxxxxxxx" pattern="^62[0-9]{8,15}$" required>
+              <div class="invalid-feedback">Gunakan format 62 diikuti angka (contoh: 62812xxxxxxx).</div>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label mb-1">Email <small class="text-muted">(untuk kirim akses)</small></label>
+              <input class="form-control" id="email" type="email" placeholder="emailkamu@email.com" required>
+              <div class="invalid-feedback">Isi email yang valid.</div>
+            </div>
+            <div class="col-12 d-grid d-md-flex gap-2">
+              <button type="submit" id="btnBayar" class="btn btn-success">
+                <i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses Sekarang
+              </button>
+              <a class="btn btn-outline-success" href="#harga"><i class="fa-solid fa-list-ul me-1"></i> Lihat Paket</a>
+            </div>
+            <div class="col-12"><div id="msg" class="small text-muted"></div></div>
+          </form>
+
+          <!-- COUNTDOWN -->
+          <div class="alert alert-warning text-center mt-4" role="alert">
+            <div class="small text-uppercase fw-bold mb-2">
+              <i class="fa-solid fa-fire-flame-curved"></i> Penawaran Terbatas Berakhir Dalam
+            </div>
+            <div class="count-box justify-content-center" id="countdown">
+              <div class="time shadow-sm"><div class="num text-danger" id="h">09</div><div class="lab">Jam</div></div>
+              <div class="time shadow-sm"><div class="num text-danger" id="m">44</div><div class="lab">Menit</div></div>
+              <div class="time shadow-sm"><div class="num text-danger" id="s">54</div><div class="lab">Detik</div></div>
+            </div>
+            <div class="small mt-3 fw-bold text-danger">
+              <i class="fa-solid fa-triangle-exclamation me-1"></i> Harga spesial hanya sampai pukul 23:59!
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <a href="#pain" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-down me-1"></i> Kenapa Perlu Sekarang</a>
+            <a href="#isi" class="btn btn-link text-decoration-none"><i class="fa-solid fa-box-open me-1"></i> Lihat Isi Paket</a>
+          </div>
         </div>
 
-        <div class="text-center mt-3 small text-muted">
-          Butuh bantuan? WhatsApp <a id="waHelp" href="#" target="_blank" rel="noopener">085156042869</a>
+        <div class="col-lg-6">
+          <div class="glass p-3 p-md-4">
+            <div class="row g-3">
+              <div class="col-12">
+                <img src="assets/1759329657580-1755852698-min.jpg" class="img-fluid" alt="10JT+ Aset Digital">
+              </div>
+            </div>
+          </div><!-- /glass -->
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
+  <!-- (SECTIONS LAIN DIPERTAHANKAN DARI HALAMAN LAMA) -->
+  <!-- PAIN / PROBLEM, BENEFIT, WHAT YOU GET, PRICING, TESTI, FAQ, FOOTER, Floating CTA -->
+  <!-- >>> kamu bisa copy blok yang sama dari versi lama bila ingin 100% sama visualnya <<< -->
+
+  <!-- Floating CTA -->
+  <div class="floating-cta" id="floater" aria-hidden="true">
+    <div class="container d-flex align-items-center justify-content-between gap-2">
+      <div class="small">Harga spesial <strong id="priceLabel2">Rp 0</strong> berakhir <strong>23:59</strong>—amankan aksesmu sekarang.</div>
+      <a href="#checkout" class="btn btn-success btn-sm"><i class="fa-solid fa-bolt me-1"></i> Dapatkan Akses</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Konfigurasi & Integrasi Pembayaran -->
   <script src="assets/config.js"></script>
   <script src="assets/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Util kecil: jam, countdown, floater -->
+  <script>
+    // Countdown ke 23:59 (Asia/Jakarta)
+    function getTonightDeadline(){
+      const now = new Date();
+      const deadline = new Date(now);
+      deadline.setHours(23,59,59,999);
+      if (deadline - now <= 0){ deadline.setDate(deadline.getDate()+1); deadline.setHours(23,59,59,999); }
+      return deadline;
+    }
+    const end = getTonightDeadline();
+    const h = document.getElementById('h'), m = document.getElementById('m'), s = document.getElementById('s');
+    function pad(n){ return n<10 ? '0'+n : ''+n; }
+    function tick(){
+      const now = new Date();
+      let diff = Math.max(0, end - now);
+      const hh = Math.floor(diff/1000/60/60); diff -= hh*60*60*1000;
+      const mm = Math.floor(diff/1000/60);    diff -= mm*60*1000;
+      const ss = Math.floor(diff/1000);
+      if (h) h.textContent = pad(hh); if (m) m.textContent = pad(mm); if (s) s.textContent = pad(ss);
+    }
+    setInterval(tick,1000); tick();
+
+    // Floating CTA on scroll
+    const floater = document.getElementById('floater'); let shown=false;
+    window.addEventListener('scroll', ()=>{
+      if (window.scrollY > 480 && !shown){ floater.classList.add('show'); floater.setAttribute('aria-hidden','false'); shown = true; }
+      if (window.scrollY <= 120 && shown){ floater.classList.remove('show'); floater.setAttribute('aria-hidden','true'); shown = false; }
+    });
+  </script>
 </body>
 </html>
