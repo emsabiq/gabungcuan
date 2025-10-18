@@ -19,8 +19,10 @@ export default async function handler(req) {
     const payload = `${uaH}.${expStr}.${rnd}.${productId}`;
     const expect = await hmac(BRIDGE_SECRET, payload);
     if (sig !== expect) return text('Bad sig', 401);
+
     const nowUaH = await sha256b64url(req.headers.get('user-agent') || '');
     if (uaH !== nowUaH) return text('UA mismatch', 401);
+
     if (Math.floor(Date.now()/1000) > Number(expStr)) return text('Session expired', 401);
 
     let map={}; try { map = JSON.parse(ASSET_MAP_JSON); } catch { return boom('bad_asset_map'); }
