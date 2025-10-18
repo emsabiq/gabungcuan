@@ -1,12 +1,23 @@
-// /assets/config.js
-window.CONFIG = {
-  PIXEL_ID: 'YOUR_PIXEL_ID', // opsional, isi kalau pakai Pixel
-  WORKER_BASE: 'https://gdc.msabiq-stan.workers.dev',
-  PUBLIC_ORIGIN: 'https://gabungcuan.vercel.app', // ← domain produksi kamu (HTTPS)
+// GANTI sesuai punyamu
+const CONFIG = {
+  // Domain publik (tanpa slash akhir)
+  APP_ORIGIN: "https://gabungcuan.vercel.app",
+
+  // Base API proxy di Cloudflare Worker (punyamu)
+  API_BASE: "https://gdc.msabiq-stan.workers.dev",
+
+  // WhatsApp bantuan (format E.164 tanpa plus, mis. 6285...)
+  SUPPORT_WA_E164: "6285156042869",
+
+  // Facebook Pixel (opsional)
+  PIXEL_ID: "YOUR_PIXEL_ID",
+
+  // Produk default (wajib untuk harga & nama di landing)
   PRODUCT_DEFAULT: {
-    id: 'product-masterkit', // => harus ada di ASSET_MAP_JSON Worker
-    name: 'Akses Digital Licence Masterkit U PLR MRR',
+    id: "product-masterkit",
+    name: "Akses Digital Licence Masterkit U PLR MRR",
     price: 149000,
-    currency: 'IDR'
+    currency: "IDR",
+    description: "Akses materi premium + bonus dikirim lewat email."
   }
 };
